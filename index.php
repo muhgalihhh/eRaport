@@ -25,12 +25,15 @@ if (isset($_POST['login'])) {
 
             // Redirect based on the user's role
             if ($role == 'Admin') {
+                echo "<script>alert('Login Sebagai Admin!');'</script>";
                 header("Location: home.php");
                 exit();
             } elseif ($role == 'Walikelas') {
+                echo '<script>alert("Login Sebagai Walikelas!");</script>';
                 header("Location: home1.php");
                 exit();
             } elseif ($role == 'Siswa') {
+                echo '<script>alert("Login Sebagai Siswa!");</script>';
                 header("Location: home2.php");
                 exit();
             }
@@ -79,7 +82,6 @@ if(isset($_GET['status'])){
                         <p class="account-subtitle">Access to our dashboard</p>
                         <!-- show alert -->
                         <?=$alert?>
-
                         <!-- Account Form -->
                         <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
                             <div class="form-group">

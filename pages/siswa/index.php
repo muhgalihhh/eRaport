@@ -3,12 +3,11 @@
     // Periksa apakah pengguna sudah login
     if (!isset($_SESSION['role'])) {
         // Jika tidak, redirect ke halaman login
-        header("Location: index.php");
+        header("Location: ../../index.php");
         exit;
     }
-    $title = "Dashboard - Admin";
-    require_once "koneksi.php";
-    require_once "./template/header.php"
+    require_once "../../koneksi.php";
+    require_once "../template/header.php"
     
 ?>
 
@@ -21,8 +20,9 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="home.php" class="logo">
-                    <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow-lg">
+                <a href="<?=$mainUrl?>/home.php" class="logo">
+                    <img src="<?=$_SESSION['foto']?>" class="rounded-circle shadow" width="40" height="40"
+                        alt="<?=$_SESSION['username']?>">
                 </a>
             </div>
             <!-- /Logo -->
@@ -59,20 +59,16 @@
                     </div>
                 </li>
                 <!-- /Search -->
-
-
-
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="<?=$_SESSION['foto']?>" alt="">
+                        <span class="user-img"><img src="`<?=$_SESSION['foto'];?>" alt="">
                             <span class="status online"></span>
                         </span>
                         <span><?=$_SESSION['role'];?></span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="../../logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -84,8 +80,7 @@
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="../../logout.php">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->
@@ -104,7 +99,7 @@
                             <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="home.php">Admin Dashboard</a></li>
+                                <li><a href="../../home.php">Admin Dashboard</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -137,7 +132,7 @@
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/user/">Input User</a></li>
+                                <li><a href="index.php">Input User</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -154,101 +149,101 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Welcome <?=$_SESSION['role']?> !</h3>
+                            <h3 class="page-title">Data User</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="../../home.php">Input Data Master</a></li>
+                                <li class="breadcrumb-item active">Data User</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- /Page Header -->
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>1000</h3>
-                                    <span>Siswa</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>44</h3>
-                                    <span>Guru</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>12</h3>
-                                    <span>Kelas</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>4</h3>
-                                    <span>Jurusan</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Content Starts -->
                 <div class="row">
-                    <div class="col-12 col-md-8 col-lg-9 d-flex">
+                    <div class="col-12">
                         <div class="card flex-fill">
-                            <img alt="" src="asset/image/scholl.png" class="card-img-top">
                             <div class="card-header d-flex justify-content-between">
-                                <h5 class="card-title mb-0">SMK N 01 XXXXXXXXXX</h5>
-                                <a class="btn btn-primary" href="#">Edit Profile</a>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">NPSN :</li>
-                                <li class="list-group-item">Jenjang pendidikan :</li>
-                                <li class="list-group-item">Status :</li>
-                                <li class="list-group-item">Akreditas :</li>
-                                <li class="list-group-item">Alamat Sekolah :</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 d-flex">
-                        <div class="card flex-fill">
-                            <div class="card-header">
-                                <h5 class="card-title text-center mb-0">Keterangan User</h5>
+                                <h5 class="card-title">Data User</h5>
+                                <a class="btn btn-primary" href="tambah.php"><i class="fa fa-plus"></i> Tambah User</a>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"></p>
-                                <a class="btn btn-primary" href="#">Go somewhere</a>
+                                <input type="text" id="searchInput" placeholder="Search..."
+                                    class="form-control col-6 mb-2">
+                                <div class="table-responsive">
+                                    <table class="datatable table table-stripped mb-0">
+                                        <div class="table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Foto</th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                    <th>Role</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Foto</th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                    <th>Role</th>
+                                                    <th>Aksi</th>
+
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php
+                                                $no = 1;
+                                                $sql = "SELECT * FROM user";
+                                                $result = mysqli_query($koneksi, $sql);
+                                                while ($data = mysqli_fetch_array($result)) :
+                                            ?>
+                                                <tr>
+                                                    <td><?=$no++?></td>
+                                                    <td class="text-center">
+                                                        <img src="<?=$data['foto']?>" alt="<?=$data['username']?>"
+                                                            class="avatar-sm rounded-circle" width="30px">
+                                                    </td>
+                                                    <td><?=$data['username']?></td>
+                                                    <td class="text-wrap" style="max-width:20px;">
+                                                        <?=$data['password']?>
+                                                    </td>
+                                                    <td><?=$data['role']?></td>
+                                                    <td class="text-center">
+                                                        <a href="edit.php?id=<?=$data['id_user']?>"
+                                                            class="btn btn-warning btn-sm"><i
+                                                                class="fa fa-edit"></i></a>
+                                                        <a onclick="return confirmDelete()"
+                                                            href="hapus.php?id=<?=$data['id_user']?>"
+                                                            class="btn btn-danger btn-sm"><i
+                                                                class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <?php endwhile;?>
+                                            </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /Content End -->
-
             </div>
-            <!-- /Page Content -->
-
         </div>
-        <!-- /Page Wrapper -->
-
     </div>
+    <!-- /Content End -->
+
+
+    <!-- /Page Content -->
+
+
+    <!-- /Page Wrapper -->
+
+
     <!-- /Main Wrapper -->
 
     <!-- jQuery -->
     <?php
-        require_once "./template/footer.php"?>
+        require_once "../template/footer.php";
