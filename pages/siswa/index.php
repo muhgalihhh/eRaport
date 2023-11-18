@@ -61,7 +61,7 @@
                 <!-- /Search -->
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="`<?=$_SESSION['foto'];?>" alt="">
+                        <span class="user-img"><img src="<?=$_SESSION['foto'];?>" alt="">
                             <span class="status online"></span>
                         </span>
                         <span><?=$_SESSION['role'];?></span>
@@ -106,7 +106,7 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="chat.html">Siswa</a></li>
+                                <li><a href="index.php">Siswa</a></li>
                                 <li><a href="events.html">Guru</a></li>
                                 <li><a href="inbox.html">Kelas</a></li>
                                 <li><a href="file-manager.html">Mata Pelajaran</a></li>
@@ -132,7 +132,7 @@
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="index.php">Input User</a></li>
+                                <li><a href="../user/index.php">Input User</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -149,10 +149,10 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Data User</h3>
+                            <h3 class="page-title">Data Siswa</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../../home.php">Input Data Master</a></li>
-                                <li class="breadcrumb-item active">Data User</li>
+                                <li class="breadcrumb-item active">Data Siswa</li>
                             </ul>
                         </div>
                     </div>
@@ -164,8 +164,8 @@
                     <div class="col-12">
                         <div class="card flex-fill">
                             <div class="card-header d-flex justify-content-between">
-                                <h5 class="card-title">Data User</h5>
-                                <a class="btn btn-primary" href="tambah.php"><i class="fa fa-plus"></i> Tambah User</a>
+                                <h5 class="card-title">Data Siswa</h5>
+                                <a class="btn btn-primary" href="tambah.php"><i class="fa fa-plus"></i> Tambah Siswa</a>
                             </div>
                             <div class="card-body">
                                 <input type="text" id="searchInput" placeholder="Search..."
@@ -177,9 +177,12 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Foto</th>
-                                                    <th>Username</th>
-                                                    <th>Password</th>
-                                                    <th>Role</th>
+                                                    <th>Nama</th>
+                                                    <th>NIS</th>
+                                                    <th>Jenis Kelamin</th>
+                                                    <th>Kelas</th>
+                                                    <th>Alamat</th>
+                                                    <th>No Telepon</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -187,42 +190,18 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Foto</th>
-                                                    <th>Username</th>
-                                                    <th>Password</th>
-                                                    <th>Role</th>
+                                                    <th>Nama</th>
+                                                    <th>NIS</th>
+                                                    <th>Jenis Kelamin</th>
+                                                    <th>Kelas</th>
+                                                    <th>Alamat</th>
+                                                    <th>No Telepon</th>
                                                     <th>Aksi</th>
 
                                                 </tr>
                                             </tfoot>
                                             <tbody>
-                                                <?php
-                                                $no = 1;
-                                                $sql = "SELECT * FROM user";
-                                                $result = mysqli_query($koneksi, $sql);
-                                                while ($data = mysqli_fetch_array($result)) :
-                                            ?>
-                                                <tr>
-                                                    <td><?=$no++?></td>
-                                                    <td class="text-center">
-                                                        <img src="<?=$data['foto']?>" alt="<?=$data['username']?>"
-                                                            class="avatar-sm rounded-circle" width="30px">
-                                                    </td>
-                                                    <td><?=$data['username']?></td>
-                                                    <td class="text-wrap" style="max-width:20px;">
-                                                        <?=$data['password']?>
-                                                    </td>
-                                                    <td><?=$data['role']?></td>
-                                                    <td class="text-center">
-                                                        <a href="edit.php?id=<?=$data['id_user']?>"
-                                                            class="btn btn-warning btn-sm"><i
-                                                                class="fa fa-edit"></i></a>
-                                                        <a onclick="return confirmDelete()"
-                                                            href="hapus.php?id=<?=$data['id_user']?>"
-                                                            class="btn btn-danger btn-sm"><i
-                                                                class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <?php endwhile;?>
+
                                             </tbody>
                                     </table>
                                 </div>

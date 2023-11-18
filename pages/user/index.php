@@ -61,7 +61,7 @@
                 <!-- /Search -->
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="`<?=$_SESSION['foto'];?>" alt="">
+                        <span class="user-img"><img src="<?=$_SESSION['foto'];?>" alt="">
                             <span class="status online"></span>
                         </span>
                         <span><?=$_SESSION['role'];?></span>
@@ -106,7 +106,7 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="chat.html">Siswa</a></li>
+                                <li><a href="../siswa/">Siswa</a></li>
                                 <li><a href="events.html">Guru</a></li>
                                 <li><a href="inbox.html">Kelas</a></li>
                                 <li><a href="file-manager.html">Mata Pelajaran</a></li>

@@ -1,16 +1,24 @@
 <?php
-    session_start();
-    // Periksa apakah pengguna sudah login
-    if (!isset($_SESSION['role'])) {
-        // Jika tidak, redirect ke halaman login
-        header("Location: index.php");
-        exit;
-    }
-    $title = "Dashboard - Admin";
-    require_once "koneksi.php";
-    require_once "./template/header.php"
-    
+session_start();
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['role'])) {
+    // Jika tidak, redirect ke halaman login
+    header("Location: index.php");
+    exit;
+}
+$title = "Tambah Siswa - Admin";
+
+require_once "../../koneksi.php";
+require_once "../template/header.php";
+
+// Use prepared statements to prevent SQL injection
+
+
 ?>
+
+<!-- The rest of your HTML code goes here -->
+
 
 <body>
     <!-- Main Wrapper -->
@@ -21,8 +29,8 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="home.php" class="logo">
-                    <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow-lg">
+                <a href="index.html" class="logo">
+                    <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow">
                 </a>
             </div>
             <!-- /Logo -->
@@ -54,7 +62,7 @@
                         </a>
                         <form action="search.html">
                             <input class="form-control" type="text" placeholder="Search here">
-                            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                            <button class="btn" type="submit" name="simpan"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                 </li>
@@ -71,7 +79,6 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
@@ -84,7 +91,6 @@
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </div>
@@ -111,7 +117,7 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/siswa/">Siswa</a></li>
+                                <li><a href="index.php">Siswa</a></li>
                                 <li><a href="events.html">Guru</a></li>
                                 <li><a href="inbox.html">Kelas</a></li>
                                 <li><a href="file-manager.html">Mata Pelajaran</a></li>
@@ -137,7 +143,7 @@
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/user/">Input User</a></li>
+                                <li><a href="index.php">Input User</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -154,101 +160,104 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Welcome <?=$_SESSION['role']?> !</h3>
+                            <h3 class="page-title">Tambah Siswa</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="../../home.php">Input Siswa</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Data Siswa</a></li>
+                                <li class="breadcrumb-item active">Tambah Siswa</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- /Page Header -->
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>1000</h3>
-                                    <span>Siswa</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>44</h3>
-                                    <span>Guru</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>12</h3>
-                                    <span>Kelas</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3>4</h3>
-                                    <span>Jurusan</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Content Starts -->
-                <div class="row">
-                    <div class="col-12 col-md-8 col-lg-9 d-flex">
-                        <div class="card flex-fill">
-                            <img alt="" src="asset/image/scholl.png" class="card-img-top">
-                            <div class="card-header d-flex justify-content-between">
-                                <h5 class="card-title mb-0">SMK N 01 XXXXXXXXXX</h5>
-                                <a class="btn btn-primary" href="#">Edit Profile</a>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">NPSN :</li>
-                                <li class="list-group-item">Jenjang pendidikan :</li>
-                                <li class="list-group-item">Status :</li>
-                                <li class="list-group-item">Akreditas :</li>
-                                <li class="list-group-item">Alamat Sekolah :</li>
-                            </ul>
+
+                <div class="card flex-fill">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 class="card-title mb-0"> Tambah Siswa</h4>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <button type="submit" class="btn btn-primary" name="simpan"><i
+                                        class="fa-solid fa-floppy-disk"></i> Simpan</button>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 d-flex">
-                        <div class="card flex-fill">
-                            <div class="card-header">
-                                <h5 class="card-title text-center mb-0">Keterangan User</h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"></p>
-                                <a class="btn btn-primary" href="#">Go somewhere</a>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="form-group text-center">
+                                                <img id="imagePreview" src="../../asset/image/default.jpg" alt="Preview"
+                                                    style="max-width: 100%; max-height: 100px; margin-top: 10px;"
+                                                    class="mb-2 rounded-circle">
+                                                <span class="d-block mb-1"><small>Hanya menerima format(JPG,JPEG,PNG),
+                                                        Maks
+                                                        1MB, Usahakan width : height</small></span>
+                                                <input type="file" name="foto" class="form-control" id="fotoInput"
+                                                    onchange="previewImage()">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nama">Nama</label>
+                                                <input type="text" name="nama" class="form-control" id="nama"
+                                                    placeholder="Masukkan Nama" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nis">NIS</label>
+                                                <input type="text" name="nis" class="form-control" id="nis"
+                                                    placeholder="Masukkan NIS" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jk">Jenis kelamin</label>
+                                                <input type="text" name="jk" class="form-control" id="jk"
+                                                    placeholder="Masukkan Jenis kelamin" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="kelas">Kelas</label>
+                                                <select name="kelas" class="form-control" id="kelas" required>
+                                                    <option value="">Pilih Kelas</option>
+                                                    <option value="X">X</option>
+                                                    <option value="XI">XI</option>
+                                                    <option value="XII">XII</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat</label>
+                                                <textarea name="alamat" class="form-control" id="alamat" required
+                                                    placeholder="Masukkan Alamat" rows="5"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="no_telp">No Telepon</label>
+                                                <input type="text" name="no_telp" class="form-control" id="no_telp"
+                                                    placeholder="Masukkan No Telepon" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /Content End -->
-
             </div>
-            <!-- /Page Content -->
-
         </div>
-        <!-- /Page Wrapper -->
+    </div>
+    <!-- /Content End -->
+
+    </div>
+    <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Wrapper -->
 
     </div>
     <!-- /Main Wrapper -->
 
     <!-- jQuery -->
     <?php
-        require_once "./template/footer.php"?>
+        require_once "../template/footer.php"?>
