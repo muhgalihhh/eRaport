@@ -182,64 +182,29 @@ require_once "../template/header.php";
                                         class="fa-solid fa-floppy-disk"></i> Simpan</button>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-group text-center">
-                                                <img id="imagePreview" src="../../asset/image/default.jpg" alt="Preview"
-                                                    style="max-width: 100%; max-height: 100px; margin-top: 10px;"
-                                                    class="mb-2 rounded-circle">
-                                                <span class="d-block mb-1"><small>Hanya menerima format(JPG,JPEG,PNG),
-                                                        Maks
-                                                        1MB, Usahakan width : height</small></span>
-                                                <input type="file" name="foto" class="form-control" id="fotoInput"
-                                                    onchange="previewImage()">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
+                                            <li class="nav-item"><a class="nav-link active"
+                                                    href="#solid-rounded-justified-tab1" data-toggle="tab">Profile</a>
+                                            </li>
+                                            <li class="nav-item"><a class="nav-link"
+                                                    href="#solid-rounded-justified-tab2" data-toggle="tab">User
+                                                    Account</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane show active" id="solid-rounded-justified-tab1">
+                                                Tab content 1
                                             </div>
-                                            <div class="form-group">
-                                                <label for="nama">Nama</label>
-                                                <input type="text" name="nama" class="form-control" id="nama"
-                                                    placeholder="Masukkan Nama" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="nis">NIS</label>
-                                                <input type="text" name="nis" class="form-control" id="nis"
-                                                    placeholder="Masukkan NIS" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jk">Jenis kelamin</label>
-                                                <input type="text" name="jk" class="form-control" id="jk"
-                                                    placeholder="Masukkan Jenis kelamin" required>
+                                            <div class="tab-pane" id="solid-rounded-justified-tab2">
+                                                Tab content 2
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="kelas">Kelas</label>
-                                                <select name="kelas" class="form-control" id="kelas" required>
-                                                    <option value="">Pilih Kelas</option>
-                                                    <option value="X">X</option>
-                                                    <option value="XI">XI</option>
-                                                    <option value="XII">XII</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="alamat">Alamat</label>
-                                                <textarea name="alamat" class="form-control" id="alamat" required
-                                                    placeholder="Masukkan Alamat" rows="5"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="no_telp">No Telepon</label>
-                                                <input type="text" name="no_telp" class="form-control" id="no_telp"
-                                                    placeholder="Masukkan No Telepon" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </form>
                             </div>
                         </div>
                     </div>
