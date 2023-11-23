@@ -1,5 +1,6 @@
 <?php
-    session_start();                   
+    session_start();             
+    $title = "Data Siswa - Admin";      
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
@@ -42,7 +43,11 @@
                                             <th>Foto</th>
                                             <th>Username</th>
                                             <th>Nama Siswa</th>
-                                            <th>Password</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Tempat, Tanggal Lahir</th>
+                                            <th>Kelas</th>
+                                            <th>Alamat</th>
+                                            <th>No Telepon</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -52,15 +57,22 @@
                                             <th>Foto</th>
                                             <th>Username</th>
                                             <th>Nama Siswa</th>
-                                            <th>Password</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Tempat, Tanggal Lahir</th>
+                                            <th>Kelas</th>
+                                            <th>Alamat</th>
+                                            <th>No Telepon</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                            $query = "SELECT *
-                                                    FROM users
-                                                    INNER JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id";
+                                            $query = "SELECT * FROM
+                                                    siswa_profiles
+                                                    JOIN
+                                                        users ON siswa_profiles.user_id = users.user_id
+                                                    JOIN
+                                                        kelas ON siswa_profiles.kelas_id = kelas.kelas_id;";
                                             $result = mysqli_query($koneksi, $query);
                                             $no = 1;
                                             while ($row = mysqli_fetch_assoc($result)) {
@@ -71,7 +83,18 @@
                                                     class="rounded-circle shadow-lg"></td>
                                             <td><?=$row['username']?></td>
                                             <td><?=$row['nama']?></td>
-                                            <td><?=$row['password']?></td>
+                                            <td><?php 
+                                                if($row['jk'] == 'L'){
+                                                    echo "Laki-laki";
+                                                }else{
+                                                    echo "Perempuan";
+                                                }
+                                            ?>
+                                            </td>
+                                            <td><?=$row['tempat_lahir']?>, <?=$row['tanggal_lahir']?></td>
+                                            <td><?=$row['nama_kelas']?></td>
+                                            <td><?=$row['alamat']?></td>
+                                            <td><?=$row['notelp']?></td>
                                             <td class="text-center">
                                                 <a href="view.php?id=<?=$row['user_id']?>"></a>
                                                 <a href="edit.php?id=<?=$row['user_id']?>" class="btn btn-warning"><i
@@ -81,10 +104,6 @@
                                                         class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
-                                        <?php
-                                                $no++;
-                                            }
-                                            ?>
                                         <!-- Delete Modal -->
                                         <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -110,6 +129,11 @@
                                             </div>
                                         </div>
                                         <!-- /Delete Modal -->
+                                        <?php
+                                                $no++;
+                                            }
+                                            ?>
+
 
 
                                     </tbody>

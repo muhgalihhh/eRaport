@@ -4,7 +4,7 @@
         header("location: ../../");
         exit;
     }
-    $title = "Data Siswa - Admin";
+    $title = "Input Siswa - Admin";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
@@ -56,7 +56,7 @@
                 // Process to save to the database
                 $hashedpassword = password_hash($password, PASSWORD_DEFAULT); 
                 $query_user = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashedpassword', 'siswa')";
-                $query_profile = "INSERT INTO siswa_profiles (user_id, nama, NIS, alamat, jk, tanggal_lahir, notelp, kelas_id,foto) VALUES (LAST_INSERT_ID(), '$nama', '$nis', '$alamat', '$jk', '$tanggal_lahir', '$telp', '$kelas', '$path_foto')";
+                $query_profile = "INSERT INTO siswa_profiles (user_id, nama, NIS, alamat, jk, tempat_lahir,tanggal_lahir, notelp, kelas_id,foto) VALUES (LAST_INSERT_ID(), '$nama', '$nis', '$alamat', '$jk','$tempat_lahir' ,'$tanggal_lahir', '$telp', '$kelas', '$path_foto')";
                 if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
                     echo "<script>alert('Berhasil menambahkan siswa!');window.location='index.php';</script>";
                 } else {
@@ -82,7 +82,7 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Tambah Data Profile dan Akun</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="index.php">Data Akun Siswa</a></li>
                         <li class="breadcrumb-item active">Tambah Data Profile dan Akun</li>
                     </ul>
