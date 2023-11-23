@@ -29,6 +29,7 @@ CREATE TABLE
         tanggal_lahir DATE,
         notelp VARCHAR(15),
         kelas_id INT,
+        foto VARCHAR(255),
         FOREIGN KEY (user_id) REFERENCES users (user_id),
         FOREIGN KEY (kelas_id) REFERENCES kelas (kelas_id)
     );
@@ -102,6 +103,22 @@ CREATE TABLE
         tanggal_lahir DATE,
         mapel_id INT,
         FOREIGN KEY (mapel_id) REFERENCES mata_pelajaran (mapel_id)
+    );
+
+CREATE TABLE
+    data_sekolah (
+        sekolah_id INT PRIMARY KEY AUTO_INCREMENT,
+        nama_sekolah VARCHAR(100) NOT NULL,
+        npsn VARCHAR(10) NOT NULL,
+        jenjang VARCHAR(10) NOT NULL,
+        status VARCHAR(10) NOT NULL,
+        alamat_sekolah VARCHAR(255),
+        tahun_berdiri INT,
+        akreditasi VARCHAR(10),
+        kepala_sekolah VARCHAR(100),
+        telepon_sekolah VARCHAR(15),
+        email_sekolah VARCHAR(50),
+        website_sekolah VARCHAR(100)
     );
 
 -- Change delimiter to handle semicolons within the trigger

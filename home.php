@@ -4,7 +4,6 @@
     if (!isset($_SESSION['role'])) {
         // Jika tidak, redirect ke halaman login
         header("Location: index.php");
-        exit;
     }
     $title = "Dashboard - Admin";
     require_once "koneksi.php";
@@ -24,6 +23,8 @@
     $dataJumlahGuru = mysqli_fetch_assoc($resultJumlahGuru);
     $dataJumlahKelas = mysqli_fetch_assoc($resultJumlahKelas);
     $dataJumlahAdmin = mysqli_fetch_assoc($resultJumlahAdmin);
+
+    
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -90,20 +91,31 @@
             </div>
         </div>
         <!-- Content Starts -->
+        <?php
+        $query = "SELECT * FROM sekolah";
+        $result = mysqli_query($koneksi, $query);
+        $data = mysqli_fetch_assoc($result);
+        ?>
         <div class="row">
             <div class="col-12 col-md-8 col-lg-9 d-flex">
                 <div class="card flex-fill">
-                    <img alt="" src="asset/image/scholl.png" class="card-img-top">
+                    <img alt="" src="<?=$data['gambar']?>" class="card-img-top">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title mb-0">SMK N 01 XXXXXXXXXX</h5>
-                        <a class="btn btn-primary" href="#">Edit Profile</a>
+                        <h5 class="card-title mb-0"><?=$data['nama_sekolah']?></h5>
+                        <a class="btn btn-primary" href="edit-home.php?<?=$data['sekolah_id']?>">Edit Profile</a>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">NPSN :</li>
-                        <li class="list-group-item">Jenjang pendidikan :</li>
-                        <li class="list-group-item">Status :</li>
-                        <li class="list-group-item">Akreditas :</li>
-                        <li class="list-group-item">Alamat Sekolah :</li>
+                        <li class="list-group-item">NPSN : <?=$data['npsn']?></li>
+                        <li class="list-group-item">Kepala sekolah : <?=$data['kepala_sekolah']?></li>
+                        <li class="list-group-item">Jenjang pendidikan : <?=$data['jenjang']?></li>
+                        <li class="list-group-item">Tahun Berdiri : <?=$data['tahun_berdiri']?></li>
+                        <li class="list-group-item">Status : <?=$data['status']?></li>
+                        <li class="list-group-item">Akreditas : <?=$data['akreditasi']?></li>
+                        <li class="list-group-item">Alamat Sekolah : <?=$data['alamat_sekolah']?></li>
+                        <li class="list-group-item">Telepon Sekolah : <?=$data['telepon_sekolah']?></li>
+                        <li class="list-group-item">Email Sekolah : <?=$data['email_sekolah']?></li>
+                        <li class="list-group-item">Website Sekolah : <a href="<?=$data['website_sekolah']?>"
+                                alt="web sekolah" target="_blank"><?=$data['website_sekolah']?></a> </li>
                     </ul>
                 </div>
             </div>
@@ -114,7 +126,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text"></p>
-                        <a class="btn btn-primary" href="#">Go somewhere</a>
+                        <a class="btn btn-primary" href="#">Lebih Detail</a>
                     </div>
                 </div>
             </div>

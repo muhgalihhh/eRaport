@@ -1,21 +1,16 @@
-<?php         
-    session_start();          
-    $title = "Edit Admin - Admin";
-    require_once '../../koneksi.php';
-    require_once '../template/header.php';
-    require_once '../template/sidebar.php';
-   if(isset($_GET['id'])){
-    $user_id = $_GET['id'];
-    $query = "SELECT users.user_id, admin_profiles.foto, users.username, users.password, admin_profiles.nama
-            FROM users
-            INNER JOIN admin_profiles ON users.user_id = admin_profiles.user_id
-            WHERE users.user_id = '$user_id'";
-    $result = mysqli_query($koneksi, $query);
-    $row = mysqli_fetch_array($result);
-   }
-   if(isset($_POST['submit'])){
-    
-   }
+<?php
+    session_start();
+    if(!isset($_SESSION['role'])){
+        header("Location: index.php");
+        exit;
+    }
+    $title = "Update Data Sekolah - Admin";
+    require_once "koneksi.php";
+    require_once "./template/header.php";
+    require_once "./template/sidebar.php";
+    $query = "SELECT * FROM sekolah";
+    $result = mysqli_query($koneksi, $query); 
+    $data = mysqli_fetch_assoc($result);
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -29,27 +24,24 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Data Admin</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../../home.php">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="index.php">Data Admin</a></li>
-                        <li class="breadcrumb-item active">Edit admin</li>
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item">Data admin</li>
+                        <li class="breadcrumb-item active">Tambah admin</li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- /Page Header -->
+
         <!-- Content Starts -->
         <div class="row">
             <div class="col-sm-12">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card flex-fill">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title">Edit Admin</h5>
-                            <div class="form-group">
-                                <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
-                                    Simpan</button>
-                                <button type="reset" name="Reset" class="btn btn-secondary"><i class="fa fa-times"></i>
-                                    Reset</button>
-                            </div>
+                            <h5 class="card-title">Tambah Admin</h5>
+                            <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
+                                Simpan</button>
                         </div>
                         <div class="card-body">
                             <div class="row">

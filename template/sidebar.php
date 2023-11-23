@@ -20,10 +20,14 @@
                     <span></span>
                 </span>
             </a>
-
+            <?php
+        $query = "SELECT nama_sekolah FROM sekolah";
+        $result = mysqli_query($koneksi, $query);
+        $data = mysqli_fetch_assoc($result);
+        ?>
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Admin - SMPN 01 XXXXXXXXXXXXX</h3>
+                <h3><?=$data['nama_sekolah']?></h3>
             </div>
             <!-- /Header Title -->
 
@@ -78,10 +82,10 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="events.html">Guru</a></li>
-                                <li><a href="inbox.html">Kelas</a></li>
-                                <li><a href="file-manager.html">Mata Pelajaran</a></li>
-                                <li><a href="file-manager.html">Tahun ajar/Semester</a></li>
+                                <li><a href="pages/guru">Guru</a></li>
+                                <li><a href="pages/kelas">Kelas</a></li>
+                                <li><a href="pages/mapel">Mata Pelajaran</a></li>
+                                <li><a href="pages/tahun-ajar">Tahun ajar/Semester</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">

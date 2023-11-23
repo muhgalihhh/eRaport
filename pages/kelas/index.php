@@ -28,6 +28,20 @@
             }
         }
     }
+    if(isset($_POST['update'])){
+        $kelas_id = $_POST['kelas_id'];
+        $edit_kelas = $_POST['edit_kelas'];
+        $edit_huruf = $_POST['edit_huruf'];
+        $edit_nama_kelas = $edit_kelas." ".$edit_huruf;
+        $query = "UPDATE kelas SET nama_kelas = '$edit_nama_kelas' WHERE kelas_id = '$kelas_id'";
+        if(mysqli_query($koneksi, $query)){
+            echo "<script>alert('Berhasil mengubah kelas!');</script>";
+            header("Location: index.php");
+        } else {
+            echo "<script>alert('Gagal mengubah kelas!');</script>";
+            header("Location: index.php");
+        }
+    }
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -139,38 +153,27 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <!-- Tambahkan formulir edit di sini -->
-                                                        <form action="update.php" method="POST">
+                                                        <form action="" method="POST">
                                                             <input type="hidden" name="kelas_id"
                                                                 value="<?= $row['kelas_id'] ?>">
                                                             <div class="form-group">
                                                                 <label for="edit_kelas">Kelas</label>
                                                                 <select name="edit_kelas" id="edit_kelas"
                                                                     class="form-control" required>
-                                                                    <option value="VII"
-                                                                        <?= ($row['kelas'] == 'VII') ? 'selected' : ''; ?>>
-                                                                        VII</option>
-                                                                    <option value="VIII"
-                                                                        <?= ($row['kelas'] == 'VIII') ? 'selected' : ''; ?>>
-                                                                        VIII</option>
-                                                                    <option value="IX"
-                                                                        <?= ($row['kelas'] == 'IX') ? 'selected' : ''; ?>>
-                                                                        IX</option>
+                                                                    <option value="">Pilih Kelas</option>
+                                                                    <option value="VII">VII</option>
+                                                                    <option value="VII">VIII</option>
+                                                                    <option value="VII">IX</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="edit_huruf">Huruf</label>
-                                                                <select name="edit_huruf" id="edit_huruf"
+                                                                <input type="text" name="edit_huruf" id="edit_huruf"
                                                                     class="form-control" required>
-                                                                    <option value="A"
-                                                                        <?= ($row['huruf'] == 'A') ? 'selected' : ''; ?>>
-                                                                        A</option>
-                                                                    <option value="B"
-                                                                        <?= ($row['huruf'] == 'B') ? 'selected' : ''; ?>>
-                                                                        B</option>
-                                                                </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                            <div class="form-group text-center">
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="update">Simpan
                                                                     Perubahan</button>
                                                             </div>
                                                         </form>

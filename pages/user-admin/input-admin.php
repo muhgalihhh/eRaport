@@ -48,7 +48,7 @@
                 $query_user = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashedpassword', 'admin')";
                 $query_profile = "INSERT INTO admin_profiles (user_id, nama, foto) VALUES (LAST_INSERT_ID(), '$nama', '$path_foto')";
                 if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
-                    echo "<>alert('Berhasil menambahkan admin!');window.location='index.php';</script>";
+                    echo "<script>alert('Berhasil menambahkan admin!');window.location='index.php';</script>";
                 } else {
                     echo "<script>alert('Gagal menambahkan admin!');</script>";
                     header("Location: input-admin.php");
@@ -85,8 +85,12 @@
                     <div class="card flex-fill">
                         <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title">Tambah Admin</h5>
-                            <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
-                                Simpan</button>
+                            <div class="form-group">
+                                <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    Simpan</button>
+                                <button type="reset" name="Reset" class="btn btn-secondary"><i class="fa fa-times"></i>
+                                    Reset</button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">

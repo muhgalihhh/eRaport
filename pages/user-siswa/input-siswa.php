@@ -8,6 +8,64 @@
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
+    if(isset($_POST['simpan'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $repeatpassword = $_POST['repeatpassword'];
+        $nama = $_POST['nama'];
+        $nis = $_POST['nis'];
+        $telp = $_POST['telp'];
+        $kelas = $_POST['kelas'];
+        $jk = $_POST['jk'];
+        $alamat = $_POST['alamat'];
+        $tempat_lahir = $_POST['tempat_lahir'];
+        $tanggal_lahir = $_POST['tanggal_lahir'];
+        $path_foto = "../../asset/image/default.jpg";
+        // Check if there is a file upload
+        if(isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
+            $foto = $_FILES['foto']['name'];
+            $ukuran_foto = $_FILES['foto']['size'];
+            $tipe_foto = $_FILES['foto']['type'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $path = "../../asset/image/";
+            $uniqfilename = uniqid()."siswa_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $foto;
+            // Validation
+            if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
+                echo "<script>alert('Format gambar tidak sesuai!');</script>";
+                header("Location: input-siswa.php");
+            } else if($ukuran_foto > 1048576) {
+                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
+                header("Location: input-siswa.php");
+            } else {
+                move_uploaded_file($tmp_foto, $path_foto);
+            }
+        }
+        if($password != $repeatpassword) {
+            echo "<script>alert('Password tidak sama!');</script>";
+            header("Location: input-siswa.php");
+        } else {
+            // Check if the username already exists
+            $cek_username = "SELECT * FROM users WHERE username = '$username'";
+            $query_cek = mysqli_query($koneksi, $cek_username);
+            if(mysqli_num_rows($query_cek) > 0) {
+                echo "<script>alert('Username sudah digunakan!');</script>";
+                header("Location: input-siswa.php");
+            } else {
+                // Process to save to the database
+                $hashedpassword = password_hash($password, PASSWORD_DEFAULT); 
+                $query_user = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashedpassword', 'siswa')";
+                $query_profile = "INSERT INTO siswa_profiles (user_id, nama, NIS, alamat, jk, tanggal_lahir, notelp, kelas_id,foto) VALUES (LAST_INSERT_ID(), '$nama', '$nis', '$alamat', '$jk', '$tanggal_lahir', '$telp', '$kelas', '$path_foto')";
+                if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
+                    echo "<script>alert('Berhasil menambahkan siswa!');window.location='index.php';</script>";
+                } else {
+                    echo "<script>alert('Gagal menambahkan siswa!');</script>";
+                    header("Location: input-siswa.php");
+                }
+            }
+        }
+    }
 ?>
 
 
@@ -64,7 +122,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nis">NIS</label>
-                                                <input type="text" name="nis" id="nis" required class="form-control">
+                                                <input type="text" name="nis" id="nis" maxlength="10" required
+                                                    class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="telp">No Telepon</label>
@@ -78,7 +137,7 @@
                                                     $sql = "SELECT * FROM kelas";
                                                     $query = mysqli_query($koneksi, $sql);
                                                     while ($data = mysqli_fetch_assoc($query)) {
-                                                        echo '<option value="'.$data['id_kelas'].'">'.$data['nama_kelas'].'</option>';
+                                                        echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
                                                     }
                                                 ?>
                                                 </select>
@@ -160,27 +219,6 @@
                 </form>
             </div>
         </div>
-        <!-- Modal untuk menampilkan pesan -->
-        <div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="pesanModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="pesanModalLabel">Sukses!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Data siswa berhasil disimpan!
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- /Content End -->
     </div>
     <!-- /Page Content -->
