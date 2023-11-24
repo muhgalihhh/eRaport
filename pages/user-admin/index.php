@@ -78,7 +78,6 @@
                                                         class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
-
                                         <!-- Delete Modal -->
                                         <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

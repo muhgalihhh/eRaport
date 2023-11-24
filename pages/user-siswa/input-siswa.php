@@ -56,7 +56,7 @@
                 // Process to save to the database
                 $hashedpassword = password_hash($password, PASSWORD_DEFAULT); 
                 $query_user = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashedpassword', 'siswa')";
-                $query_profile = "INSERT INTO siswa_profiles (user_id, nama, NIS, alamat, jk, tempat_lahir,tanggal_lahir, notelp, kelas_id,foto) VALUES (LAST_INSERT_ID(), '$nama', '$nis', '$alamat', '$jk','$tempat_lahir' ,'$tanggal_lahir', '$telp', '$kelas', '$path_foto')";
+                $query_profile = "INSERT INTO siswa_profiles (user_id, nama, NIS, alamat, jk, tempat_lahir, tanggal_lahir, notelp, kelas_id, foto) VALUES (LAST_INSERT_ID(), '$nama', '$nis', '$alamat', '$jk', '$tempat_lahir', '$tanggal_lahir', '$telp', '$kelas', '$path_foto')";
                 if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
                     echo "<script>alert('Berhasil menambahkan siswa!');window.location='index.php';</script>";
                 } else {
@@ -134,13 +134,14 @@
                                                 <select name="kelas" id="kelas" required class="form-control">
                                                     <option value="">-- Pilih Kelas --</option>
                                                     <?php
-                                                    $sql = "SELECT * FROM kelas";
-                                                    $query = mysqli_query($koneksi, $sql);
-                                                    while ($data = mysqli_fetch_assoc($query)) {
-                                                        echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
-                                                    }
-                                                ?>
+                                                                $sql = "SELECT * FROM kelas";
+                                                                $query = mysqli_query($koneksi, $sql);
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                    echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
+                                                                }
+                                                                ?>
                                                 </select>
+
                                             </div>
                                             <div class="form-group">
                                                 <label for="jk">Jenis Kelamin</label>
