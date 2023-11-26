@@ -1,5 +1,9 @@
 <?php         
-    session_start();          
+    session_start();   
+    if(!isset($_SESSION['role'])){
+        header("Location: ../../index.php");
+        exit;
+    }       
     $title = "Edit Admin - Admin";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
@@ -12,10 +16,57 @@
             WHERE users.user_id = '$user_id'";
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_array($result);
-   }
-   if(isset($_POST['submit'])){
-    
-   }
+    }
+    if(isset($_POST['submit'])){
+        $username = $_POST['username'];
+        $nama = $_POST['nama'];
+        $path_foto = $row['foto'];
+        // Check if there is a file upload
+        if(isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
+            $foto = $_FILES['foto']['name'];
+            $ukuran_foto = $_FILES['foto']['size'];
+            $tipe_foto = $_FILES['foto']['type'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $path = "../../asset/image/";
+            $uniqfilename ="admin_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $uniqfilename;
+            // Validation
+            if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
+                echo "<script>alert('Format gambar tidak sesuai!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else if($ukuran_foto > 1048576) {
+                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else {
+                unlink($row['foto']);
+                move_uploaded_file($tmp_foto, $path_foto);
+            }
+        }
+        if($password != $repeatpassword) {
+            echo "<script>alert('Password tidak sama!');</script>";
+            header("Location: edit.php?id=".$user_id);
+        } else {
+            // Check if the username already exists
+            $cek_username = "SELECT * FROM users WHERE username = '$username' AND user_id != '$user_id'";
+            $query_cek = mysqli_query($koneksi, $cek_username);
+            if(mysqli_num_rows($query_cek) > 0) {
+                echo "<script>alert('Username sudah digunakan!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else {
+                // Process to save to the database
+                $query_user = "UPDATE users SET username = '$username'WHERE user_id = '$user_id'";
+                $query_profile = "UPDATE admin_profiles SET nama = '$nama', foto = '$path_foto' WHERE user_id = '$user_id'";
+                if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
+                    echo "<script>alert('Berhasil mengubah admin!');window.location='index.php';</script>";
+                } else {
+                    echo "<script>alert('Gagal mengubah admin!');</script>";
+                    header("Location: edit.php?id=".$user_id);
+                }
+        
+    }
+}
+}
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -89,16 +140,6 @@
                                                     required class="form-control" value="<?=$row['username']?>">
                                                 <small id="validationMessage" class="form-text text-muted">Hanya
                                                     diperbolehkan huruf dan angka, tanpa spasi dan simbol.</small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" name="password" id="password" required
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Confirm Password</label>
-                                                <input type="password" name="repeatpassword" id="repeatpassword"
-                                                    required class="form-control">
                                             </div>
                                         </div>
                                     </div>

@@ -82,10 +82,10 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../Guru">Guru</a></li>
-                                <li><a href="../kelas">Kelas</a></li>
-                                <li><a href="../mapel">Mata Pelajaran</a></li>
-                                <li><a href="../tahun-ajar">Tahun ajar/Semester</a></li>
+                                <li><a href="../guru/">Guru</a></li>
+                                <li><a href="../kelas/">Kelas</a></li>
+                                <li><a href="../mapel/">Mata Pelajaran</a></li>
+                                <li><a href="../tahun-ajar/">Tahun ajar/Semester</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">

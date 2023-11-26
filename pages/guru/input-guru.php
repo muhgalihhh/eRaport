@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['role'])){
-        header("Location: index.php");
+        header("Location: ../../index.php");
         exit;
     }
     $title = "Tambah Data Guru Mapel - Admin";
@@ -14,7 +14,6 @@
 
     <!-- Page Content -->
     <div class="content container-fluid">
-
         <!-- Page Header -->
         <div class="page-header">
             <div class="row">
@@ -81,6 +80,15 @@
                                                     <textarea name="alamat" id="alamat" cols="30" rows="3"
                                                         class="form-control"></textarea>
                                                 </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="submit" name="submit" class="btn btn-primary"><i
+                                                        class="fa fa-plus"></i>
+                                                    Simpan</button>
+                                                <button type="reset" name="Reset" class="btn btn-secondary"><i
+                                                        class="fa fa-times"></i>
+                                                    Reset</button>
                                             </div>
                                         </div>
                                     </div>

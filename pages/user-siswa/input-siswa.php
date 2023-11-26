@@ -29,8 +29,8 @@
             $tipe_foto = $_FILES['foto']['type'];
             $tmp_foto = $_FILES['foto']['tmp_name'];
             $path = "../../asset/image/";
-            $uniqfilename = uniqid()."siswa_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
-            $path_foto = $path . $foto;
+            $uniqfilename = "siswa_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $uniqfilename;
             // Validation
             if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
                 echo "<script>alert('Format gambar tidak sesuai!');</script>";
@@ -121,9 +121,18 @@
                                                 <input type="text" name="nama" id="nama" required class="form-control">
                                             </div>
                                             <div class="form-group">
+                                                <?php
+                                                    $prefix = "SK"; // Anda dapat mengganti awalan ini sesuai kebutuhan
+                                                    $query_max_nis = "SELECT MAX(CAST(SUBSTRING(nis, 3) AS UNSIGNED)) AS max_nis FROM siswa_profiles";
+                                                    $result_max_nis = mysqli_query($koneksi, $query_max_nis);
+                                                    $row_max_nis = mysqli_fetch_assoc($result_max_nis);
+                                                    $max_nis = $row_max_nis['max_nis'];
+                                                    $nis_number = $max_nis + 1;
+                                                    $nis = $prefix . str_pad($nis_number, 7, '0', STR_PAD_LEFT);
+                                                ?>
                                                 <label for="nis">NIS</label>
-                                                <input type="text" name="nis" id="nis" maxlength="10" required
-                                                    class="form-control">
+                                                <input type="text" name="nis" id="nis" maxlength="10" readonly
+                                                    value="<?php echo $nis; ?>" required class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="telp">No Telepon</label>
@@ -134,7 +143,7 @@
                                                 <select name="kelas" id="kelas" required class="form-control">
                                                     <option value="">-- Pilih Kelas --</option>
                                                     <?php
-                                                                $sql = "SELECT * FROM kelas";
+                                                                $sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
                                                                 $query = mysqli_query($koneksi, $sql);
                                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                                     echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';

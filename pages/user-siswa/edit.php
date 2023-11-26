@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if (!isset($_SESSION['role'])) {
+        header("Location: ../../index.php");
+        exit;
+    }
     $title = "Edit Data Siswa - Admin";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
@@ -14,8 +18,63 @@
         $result = mysqli_query($koneksi, $query);
         $row = mysqli_fetch_array($result);
     }
+    if(isset($_POST['simpan'])){
+        $nama = $_POST['nama'];
+        $nis = $_POST['nis'];
+        $telp = $_POST['telp'];
+        $kelas = $_POST['kelas'];
+        $jk = $_POST['jk'];
+        $alamat = $_POST['alamat'];
+        $tempat_lahir = $_POST['tempat_lahir'];
+        $tanggal_lahir = $_POST['tanggal_lahir'];
+        $username = $_POST['username'];
+        $path_foto = $row['foto'];
+        // Check if there is a file upload
+        if(isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
+            $foto = $_FILES['foto']['name'];
+            $ukuran_foto = $_FILES['foto']['size'];
+            $tipe_foto = $_FILES['foto']['type'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $path = "../../asset/image/";
+            $uniqfilename = "siswa_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $uniqfilename;
+            // Validation
+            if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
+                echo "<script>alert('Format gambar tidak sesuai!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else if($ukuran_foto > 1048576) {
+                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else {
+                unlink($row['foto']);
+                move_uploaded_file($tmp_foto, $path_foto);
+            }
+        }
+        if($password != $repeatpassword) {
+            echo "<script>alert('Password tidak sama!');</script>";
+            header("Location: edit.php?id=".$user_id);
+        } else {
+            // Check if the username already exists
+            $cek_username = "SELECT * FROM users WHERE username = '$username' AND user_id != '$user_id'";
+            $query_cek = mysqli_query($koneksi, $cek_username);
+            if(mysqli_num_rows($query_cek) > 0) {
+                echo "<script>alert('Username sudah digunakan!');</script>";
+                header("Location: edit.php?id=".$user_id);
+            } else {
+                $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+                $query_user = "UPDATE users SET username = '$username', password = '$hashedpassword' WHERE user_id = '$user_id'";
+                $query_profile = "UPDATE siswa_profiles SET nama = '$nama', NIS = '$nis',alamat = '$alamat', jk = '$jk', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', notelp = '$telp', kelas_id = '$kelas', foto = '$path_foto' WHERE user_id = '$user_id'";
+                if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
+                    echo "<script>alert('Berhasil mengubah siswa!');window.location='index.php';</script>";
+                } else {
+                    echo "<script>alert('Gagal mengubah siswa!');</script>";
+                    header("Location: edit.php?id=".$user_id);
+                }
+            }
+    }
+}
 ?>
-
 
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -70,7 +129,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nis">NIS</label>
-                                                <input type="text" name="nis" id="nis" maxlength="10" required
+                                                <input type="text" name="nis" id="nis" maxlength="10" readonly
                                                     class="form-control" value="<?=$row['NIS']?>">
                                             </div>
                                             <div class="form-group">
@@ -83,7 +142,7 @@
                                                 <select name="kelas" id="kelas" required class="form-control">
                                                     <option value="">-- Pilih Kelas --</option>
                                                     <?php
-                                                        $query = "SELECT * FROM kelas";
+                                                        $query = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
                                                         $result = mysqli_query($koneksi, $query);
                                                         while ($kelas = mysqli_fetch_assoc($result)) {
                                                             if ($kelas['kelas_id'] == $row['kelas_id']) {
@@ -145,13 +204,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
-                                                    <input type="password" name="password" id="password" required
+                                                    <input type="password" name="password" id="password"
                                                         class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password">Confirm Password</label>
                                                     <input type="password" name="repeatpassword" id="repeatpassword"
-                                                        required class="form-control">
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>

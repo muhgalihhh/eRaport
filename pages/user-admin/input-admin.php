@@ -1,5 +1,9 @@
 <?php  
     session_start();          
+    if(!isset($_SESSION['role'])){
+        header("Location: ../../index.php");
+        exit;
+    }
     $title = "Data Admin - Admin";       
     require_once '../../koneksi.php';
     require_once '../template/header.php';
@@ -18,8 +22,8 @@
             $tipe_foto = $_FILES['foto']['type'];
             $tmp_foto = $_FILES['foto']['tmp_name'];
             $path = "../../asset/image/";
-            $uniqfilename = uniqid()."admin_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
-            $path_foto = $path . $foto;
+            $uniqfilename = "admin_".$username.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $uniqfilename;
 
             // Validation
             if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {

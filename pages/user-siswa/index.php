@@ -1,5 +1,10 @@
 <?php
     session_start();             
+    if(!isset($_SESSION['role'])){
+        header("Location: ../../index.php");
+        exit;
+    }
+
     $title = "Data Siswa - Admin";      
     require_once '../../koneksi.php';
     require_once '../template/header.php';

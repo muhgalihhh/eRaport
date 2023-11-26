@@ -1,27 +1,35 @@
 <?php
-    require_once "../../koneksi.php";
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-        // Ambil nama file foto sebelum menghapus admin
-        $query_select = "SELECT foto FROM siswa_profiles WHERE user_id = '$id'";
-        $result = mysqli_query($koneksi, $query_select);
+session_start();
+if (!isset($_SESSION['role'])) {
+    header("Location: ../../index.php");
+    exit;
+}
 
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        $foto_filename = $row['foto'];
+require_once '../../koneksi.php';
 
-        // Hapus foto dari direktori jika file foto ada
-        if (!empty($foto_filename) && file_exists("../../asset/image" . $foto_filename)) {
-            unlink("../../asset/image" . $foto_filename);
-        }
+// Pastikan parameter id ada dan merupakan angka
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $user_id = $_GET['id'];
+
+    // Query untuk menghapus data dari tabel siswa_profiles
+    $query_delete_siswa = "DELETE FROM siswa_profiles WHERE user_id = $user_id";
+    $result_delete_siswa = mysqli_query($koneksi, $query_delete_siswa);
+
+    // Query untuk menghapus data dari tabel users
+    $query_delete_user = "DELETE FROM users WHERE user_id = $user_id";
+    $result_delete_user = mysqli_query($koneksi, $query_delete_user);
+
+    if ($result_delete_siswa && $result_delete_user) {
+        // Redirect kembali ke halaman data siswa jika berhasil dihapus
+        header("Location: index.php");
+        exit;
+    } else {
+        // Tampilkan pesan error jika terjadi masalah
+        echo "Gagal menghapus data siswa.";
     }
-        $query = "DELETE FROM siswa_profiles WHERE user_id = '$id'";
-        if(mysqli_query($koneksi, $query)){
-            echo "<script>alert('Berhasil menghapus admin!');</script>";
-            header("Location: index.php");
-        } else {
-            echo "<script>alert('Gagal menghapus admin!');</script>";
-            header("Location: index.php");
-        }
-    }
+} else {
+    // Redirect ke halaman data siswa jika parameter id tidak ditemukan atau tidak valid
+    header("Location: index.php");
+    exit;
+}
 ?>

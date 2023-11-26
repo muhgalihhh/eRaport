@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['role'])){
-        header("Location: index.php");
+        header("Location: ../../index.php");
         exit;
     }
     $title = "Data Guru - Admin";
@@ -33,7 +33,7 @@
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">Data Guru</h5>
-                        <a class="btn btn-primary" href="./input-guru.php"><i class="fa fa-plus"></i> Tambah
+                        <a class="btn btn-primary" href="guru/input-guru.php"><i class="fa fa-plus"></i> Tambah
                             Guru</a>
                     </div>
                     <div class="card-body">
