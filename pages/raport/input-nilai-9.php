@@ -87,12 +87,12 @@
                                             <h5>Ujian</h5>
                                         </div>
                                         <div class="card-body">
-                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="tahun_ajaran">Tahun Ajaran</label>
                                                 <select name="tahun_ajaran" id="tahun_ajaran" class="form-control">
                                                     <option value="">-- Pilih Tahun Ajaran --</option>
                                                     <?php
-                                                        $sql = "SELECT * FROM tahun_semester ORDER BY tahun_semester_id DESC";
+                                                        $sql = "SELECT * FROM tahun_semester ORDER BY tahun_semester_id ASC";
                                                         $query = mysqli_query($koneksi, $sql);
                                                         while ($data = mysqli_fetch_assoc($query)) {
                                                             echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_tahun'] . ' - Semester ' . $data['nama_semester'].'</option>';

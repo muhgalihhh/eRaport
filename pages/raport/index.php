@@ -11,6 +11,7 @@
     require_once '../template/sidebar.php';
     require_once '../template/message.php';
     $query = "SELECT DISTINCT
+                siswa_profiles.user_id,
                 siswa_profiles.foto,
                 siswa_profiles.NIS,
                 siswa_profiles.nama AS nama_siswa,
@@ -29,7 +30,7 @@
             JOIN 
                 tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
             WHERE
-                kelas.nama_kelas LIKE 'VII__';";
+                kelas.nama_kelas LIKE 'VII__' and siswa_profiles.user_id = '".$_GET['id']."';";
 
     $result = mysqli_query($koneksi, $query);
 ?>
@@ -109,8 +110,6 @@
                                             <td><?= $row['nama_ujian'] ?></td>
                                             <td><?=$row['nama_tahun']?>, <?= $row['nama_semester'] ?></td>
                                             <td>
-                                                <a href="print.php" class="btn btn-success btn-sm"><i
-                                                        class="fa fa-print"></i></a>
                                                 <a href="edit.php?id=<?= $row['user_id'] ?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

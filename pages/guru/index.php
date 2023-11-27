@@ -51,6 +51,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Foto</th>
                                             <th>Nama</th>
                                             <th>NIP</th>
                                             <th>Mengampu mapel</th>
@@ -64,6 +65,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
+                                            <th>Foto</th>
                                             <th>Nama</th>
                                             <th>NIP</th>
                                             <th>Mengampu mapel</th>
@@ -85,6 +87,8 @@
                                         ?>
                                         <tr>
                                             <td><?= $no ?></td>
+                                            <td><img src="<?= $row['foto'] ?>" alt="Foto Guru" width="40px"
+                                                    class="rounded-circle"></td>
                                             <td><?= $row['nama_guru'] ?></td>
                                             <td><?= $row['nip'] ?></td>
                                             <td><?= $row['nama_mapel'] ?></td>
