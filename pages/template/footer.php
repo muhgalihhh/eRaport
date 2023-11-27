@@ -94,6 +94,20 @@ $(document).ready(function() {
     });
 });
 </script>
+<!-- Slider -->
+\<script>
+// Mendapatkan elemen slider
+var slider = document.getElementById("slider");
+
+// Mendapatkan elemen untuk menampilkan nilai slider
+var sliderValue = document.getElementById("sliderValue");
+
+// Menetapkan fungsi yang akan dijalankan ketika nilai slider berubah
+slider.oninput = function() {
+    // Menampilkan nilai slider pada elemen
+    sliderValue.innerHTML = "Nilai: " + this.value;
+}
+</script>
 </body>
 
 </html>

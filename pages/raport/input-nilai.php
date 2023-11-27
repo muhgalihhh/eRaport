@@ -8,7 +8,6 @@
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
-
 ?>
 
 
@@ -134,6 +133,13 @@
                                                                 ?>
                                                     </select>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="slider">Pilih Nilai:</label>
+                                                    <input type="range" class="form-control-range" id="slider" min="0"
+                                                        max="100">
+                                                    <p id="sliderValue">Nilai: 0</p>
+                                                </div>
+
                                             </div>
 
                                         </div>
