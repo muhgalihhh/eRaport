@@ -10,7 +10,7 @@
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
     require_once '../template/message.php';
-    $query = "SELECT 
+    $query = "SELECT DISTINCT
                 siswa_profiles.foto,
                 siswa_profiles.NIS,
                 siswa_profiles.nama AS nama_siswa,
