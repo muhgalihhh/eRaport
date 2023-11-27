@@ -7,7 +7,7 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="home.php" class="logo">
+                <a href="../../<?=$_SESSION['mainurl']?>" class="logo">
                     <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow-lg">
                 </a>
             </div>

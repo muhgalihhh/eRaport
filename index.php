@@ -9,20 +9,29 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['role'];
+    if($role == 'admin'){
     $queryadmin = "SELECT *
               FROM users
               INNER JOIN roles ON users.role = roles.role_name
               LEFT JOIN admin_profiles ON users.user_id = admin_profiles.user_id
               WHERE users.username = '$username' AND roles.role_name = '$role'";
-    $querywalikelas = "SELECT * FROM users 
+            $result = mysqli_query($koneksi, $queryadmin);  
+            }else if($role == 'walikelas'){
+                $querywalikelas = "SELECT * FROM users 
               INNER JOIN roles on users.role = roles.role_name 
               LEFT JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
               WHERE users.username = '$username' AND roles.role_name = '$role'";
-
-    $querysiswa = "SELECT * FROM users 
+            $result = mysqli_query($koneksi, $querywalikelas);
+            }else if($role == 'siswa'){
+                $querysiswa = "SELECT * FROM users 
               INNER JOIN roles on users.role = roles.role_name 
               LEFT JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
               WHERE users.username = '$username' AND roles.role_name = '$role'";
+            $result = mysqli_query($koneksi, $querysiswa);
+            }else if($role == ""){
+                header("Location: index.php?status=failed3");
+                exit();
+            }
 
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
