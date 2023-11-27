@@ -69,6 +69,10 @@ if (isset($_POST['login'])) {
                     $_SESSION['foto'] = $user['foto'];
                     $_SESSION['NIS'] = $user['NIS'];
                     $_SESSION['kelas_id'] = $user['kelas_id'];
+                    $sql = "SELECT * FROM kelas WHERE kelas_id = '$user[kelas_id]' ";
+                    $result = mysqli_query($koneksi, $sql);
+                    $kelas = mysqli_fetch_assoc($result);
+                    $_SESSION['kelas'] = $kelas['nama_kelas'];
                     $_SESSION['notelp'] = $user['notelp'];
                     $_SESSION['jk'] = $user['jk'];
                     $_SESSION['alamat'] = $user['alamat'];

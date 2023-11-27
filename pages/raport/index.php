@@ -29,7 +29,8 @@
             JOIN 
                 tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
             JOIN
-                semester ON tahun_semester.tahun_semester_id = semester.tahun_semester_id;";
+                semester ON tahun_semester.tahun_semester_id = semester.tahun_semester_id
+                 WHERE kelas.nama_kelas LIKE 'VII__';";
     $result = mysqli_query($koneksi, $query);
 ?>
 <!-- Page Wrapper -->
