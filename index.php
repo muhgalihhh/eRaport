@@ -9,13 +9,20 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['role'];
-    $query = "SELECT *
+    $queryadmin = "SELECT *
               FROM users
               INNER JOIN roles ON users.role = roles.role_name
               LEFT JOIN admin_profiles ON users.user_id = admin_profiles.user_id
               WHERE users.username = '$username' AND roles.role_name = '$role'";
+    $querywalikelas = "SELECT * FROM users 
+              INNER JOIN roles on users.role = roles.role_name 
+              LEFT JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
+              WHERE users.username = '$username' AND roles.role_name = '$role'";
 
-    $result = mysqli_query($koneksi, $query);
+    $querysiswa = "SELECT * FROM users 
+              INNER JOIN roles on users.role = roles.role_name 
+              LEFT JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
+              WHERE users.username = '$username' AND roles.role_name = '$role'";
 
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
@@ -26,22 +33,38 @@ if (isset($_POST['login'])) {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role_name'];
-
-            // Additional data from admin_profiles
-            $_SESSION['nama'] = $user['nama'];
-            $_SESSION['foto'] = $user['foto'];
-
             // Redirect based on role
             switch ($_SESSION['role']) {
                 case 'admin':
+                    // tambahan data admin
+                    $_SESSION['nama'] = $user['nama'];
+                    $_SESSION['foto'] = $user['foto'];
                     $_SESSION['mainurl'] = 'home.php';
                     header("Location: home.php");
                     exit();
                 case 'walikelas':
+                    //tambahan data walikelas
+                    $_SESSION['nama'] = $user['nama'];
+                    $_SESSION['foto'] = $user['foto'];
+                    $_SESSION['nip'] = $user['nip'];
+                    $_SESSION['kelas_id'] = $user['kelas_id'];
+                    $_SESSION['notelp'] = $user['notelp'];
+                    $_SESSION['jk'] = $user['jk'];
+                    $_SESSION['alamat'] = $user['alamat'];
                     $_SESSION['mainurl'] = 'home1.php';
                     header("Location: home1.php");
                     exit();
                 case 'siswa':
+                    //tambahan data siswa
+                    $_SESSION['nama'] = $user['nama'];
+                    $_SESSION['foto'] = $user['foto'];
+                    $_SESSION['NIS'] = $user['NIS'];
+                    $_SESSION['kelas_id'] = $user['kelas_id'];
+                    $_SESSION['notelp'] = $user['notelp'];
+                    $_SESSION['jk'] = $user['jk'];
+                    $_SESSION['alamat'] = $user['alamat'];
+                    $_SESSION['tempat_lahir'] = $user['tempat_lahir'];
+                    $_SESSION['tanggal_lahir'] = $user['tanggal_lahir'];
                     $_SESSION['mainurl'] = 'home2.php';
                     header("Location: home2.php");
                     exit();

@@ -55,12 +55,12 @@
                                                             class="form-control">
                                                             <option value="">-- Pilih Tahun Ajaran --</option>
                                                             <?php
-                                                                $sql = "SELECT * FROM tahun_semester ORDER BY nama_tahun ASC";
-                                                                $query = mysqli_query($koneksi, $sql);
-                                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                                    echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_tahun'].'</option>';
-                                                                }
-                                                                ?>
+                                                            $sql = "SELECT * FROM tahun_semester ORDER BY tahun_semester_id DESC";
+                                                            $query = mysqli_query($koneksi, $sql);
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_tahun'].'</option>';
+                                                            }
+                                                           ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -69,12 +69,14 @@
                                                     <select name="semester" id="semester" required class="form-control">
                                                         <option value="">-- Pilih Semester --</option>
                                                         <?php
-                                                                $sql = "SELECT * FROM tahun_semester ORDER BY nama_semester ASC";
-                                                                $query = mysqli_query($koneksi, $sql);
-                                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                                    echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_semester'].'</option>';
-                                                                }
-                                                                ?>
+                                                            $sql = "SELECT * FROM semester 
+                                                                    JOIN tahun_semester ON semester.tahun_semester_id = tahun_semester.tahun_semester_id 
+                                                                    ORDER BY tahun_semester.tahun_semester_id DESC";
+                                                            $query = mysqli_query($koneksi, $sql);
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_semester'].'</option>';
+                                                            }
+                                                        ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -92,18 +94,17 @@
                                                     class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <?php
-                                                    $prefix = "SK"; // Anda dapat mengganti awalan ini sesuai kebutuhan
-                                                    $query_max_nis = "SELECT MAX(CAST(SUBSTRING(nis, 3) AS UNSIGNED)) AS max_nis FROM siswa_profiles";
-                                                    $result_max_nis = mysqli_query($koneksi, $query_max_nis);
-                                                    $row_max_nis = mysqli_fetch_assoc($result_max_nis);
-                                                    $max_nis = $row_max_nis['max_nis'];
-                                                    $nis_number = $max_nis + 1;
-                                                    $nis = $prefix . str_pad($nis_number, 7, '0', STR_PAD_LEFT);
-                                                ?>
-                                                <label for="nis">NIS</label>
-                                                <input type="text" name="nis" id="nis" maxlength="10" readonly
-                                                    value="<?php echo $nis; ?>" required class="form-control">
+                                                <label for="kelas">kelas</label>
+                                                <select name="kelas" id="kelas" class="form-control">
+                                                    <option value="">-- Pilih Kelas --</option>
+                                                    <?php
+                                                                $sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
+                                                                $query = mysqli_query($koneksi, $sql);
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                    echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
+                                                                }
+                                                                ?>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="telp">No Telepon</label>
@@ -165,7 +166,8 @@
                                                     <input type="text" name="username" id="username"
                                                         pattern="[A-Za-z0-9]+" required class="form-control">
                                                     <small id="validationMessage" class="form-text text-muted">Hanya
-                                                        diperbolehkan huruf dan angka, tanpa spasi dan simbol.</small>
+                                                        diperbolehkan huruf dan angka, tanpa spasi dan
+                                                        simbol.</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
