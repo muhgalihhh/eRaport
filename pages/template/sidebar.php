@@ -11,5 +11,4 @@
         header("Location: ../../index.php?status=failed3");
         exit();
     }
-
 ?>
