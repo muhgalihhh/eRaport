@@ -60,8 +60,6 @@
         </div>
         <!-- /Input Modal -->
 
-
-
         <!-- Content Starts -->
         <div class="row">
             <div class="col-sm-12">

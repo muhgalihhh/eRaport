@@ -46,7 +46,8 @@
                         <form action="proses.php" method="POST">
                             <div class="form-group">
                                 <label for="tahun">Tahun Ajar</label>
-                                <input class="form-control" type="text" name="tahun" id="tahun" maxlength="9" required>
+                                <input class="form-control" type="text" name="tahun" id="tahun" maxlength="9" required
+                                    pattern="[0-9]{4}/[0-9]{4}">
                                 <small class="form-text text-muted">Contoh : 2020/2021</small>
                             </div>
                             <div class="form-group">
@@ -94,7 +95,9 @@
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $query = "SELECT * FROM tahun_semester";
+                                        $query = "SELECT *
+                                                FROM semester s
+                                                JOIN tahun_semester ts ON s.tahun_semester_id = ts.tahun_semester_id;";
                                         $result = mysqli_query($koneksi, $query);
                                         while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
@@ -104,17 +107,16 @@
                                             <td><?= $row['nama_semester'] ?></td>
                                             <td class="text-center">
                                                 <a href="#" class="btn btn-warning" data-toggle="modal"
-                                                    data-target="#editModal<?= $row['tahun_semester_id'] ?>"><i
+                                                    data-target="#editModal<?= $row['id'] ?>"><i
                                                         class="fa fa-edit"></i></a>
                                                 <a href="#" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#deleteModal<?= $row['tahun_semester_id'] ?>"><i
+                                                    data-target="#deleteModal<?= $row['id'] ?>"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <!-- Edit Modal -->
-                                        <div class="modal fade" id="editModal<?= $row['tahun_semester_id'] ?>"
-                                            tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="editModal<?= $row['id'] ?>" tabindex="-1"
+                                            role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -130,7 +132,7 @@
                                                         <form action="proses.php" method="POST">
                                                             <div class="form-group">
                                                                 <input type="text" name="id" hidden
-                                                                    value="<?=$row['tahun_semester_id']?>">
+                                                                    value="<?=$row['id']?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tahun_edit">Tahun Ajar</label>
@@ -168,9 +170,8 @@
                                         </div>
                                         <!-- /Edit Modal -->
                                         <!-- Delete Modal -->
-                                        <div class="modal fade" id="deleteModal<?= $row['tahun_semester_id'] ?>"
-                                            tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal<?= $row['id'] ?>" tabindex="-1"
+                                            role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -187,7 +188,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <a href="hapus.php?id=<?=$row['tahun_semester_id']?>"
+                                                        <a href="hapus.php?id=<?=$row['id']?>"
                                                             class="btn btn-danger">Delete</a>
                                                     </div>
                                                 </div>
