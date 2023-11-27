@@ -1,31 +1,55 @@
 <?php
-    require_once "../../koneksi.php";   
-    if(isset($_POST['submit'])) {
+require_once "../../koneksi.php";
+
+if (isset($_POST['submit'])) {
     // Ambil data dari form
     $tahun = $_POST['tahun'];
     $semester = $_POST['semester'];
 
-    // Cek apakah tahun semester sudah ada di tabel
-    $queryCheckTahun = "SELECT tahun_semester_id FROM tahun_semester WHERE nama_tahun = '$tahun'";
-    $resultCheckTahun = $koneksi->query($queryCheckTahun);
+    // Cek apakah ada data yang belum diisi
+    if ($tahun == '' || $semester == '') {
+        // Jika ada data yang belum diisi
+        echo "<script>alert('Mohon untuk mengisi semua data!');</script>";
+        header("Location: tambah.php?status=failed");
+    } else {
+        // Cek apakah nama tahun dan semester sudah ada dalam database
+        $cek_query = "SELECT * FROM tahun_semester WHERE nama_tahun = '$tahun' AND nama_semester = '$semester'";
+        $cek_result = mysqli_query($koneksi, $cek_query);
 
-    if ($resultCheckTahun->num_rows > 0) {
-        // Tahun semester sudah ada, ambil ID
-        $row = $resultCheckTahun->fetch_assoc();
-        $tahun_semester_id = $row['tahun_semester_id'];
-    } else {
-        // Tahun semester belum ada, tambahkan ke tabel
-        $queryInsertTahun = "INSERT INTO tahun_semester (nama_tahun) VALUES ('$tahun')";
-        $koneksi->query($queryInsertTahun);
-        // Ambil ID tahun semester yang baru ditambahkan
-        $tahun_semester_id = $koneksi->insert_id;
+        if (mysqli_num_rows($cek_result) > 0) {
+            // Jika sudah ada, tampilkan pesan kesalahan
+            echo "<script>alert('Data tahun ajar sudah ada dalam database!');</script>";
+            header("Location: index.php?status=failed");
+        } else {
+            // Jika belum ada, lakukan penambahan data ke database
+            $query = "INSERT INTO tahun_semester (nama_tahun, nama_semester) VALUES ('$tahun', '$semester')";
+            $result = mysqli_query($koneksi, $query);
+
+            if ($result) {
+                echo "<script>alert('Berhasil menambahkan tahun ajar!');</script>";
+                header("Location: index.php?status=added");
+            } else {
+                echo "<script>alert('Gagal menambahkan tahun ajar!');</script>";
+                header("Location: index.php?status=failed");
+            }
+        }
     }
-    // Tambahkan data ke tabel semester
-    $queryInsertSemester = "INSERT INTO semester (nama_semester, tahun_semester_id) VALUES ('$semester', '$tahun_semester_id')";
-    if ($koneksi->query($queryInsertSemester) === TRUE) {
-        echo "<script>alert('Berhasil menambahkan tahun ajar!');window.location.href='index.php?status=added';</script>";
+}
+
+if($_POST['update']){
+    $id = $_POST['id'];
+    $tahun = $_POST['tahun_edit'];
+    $semester = $_POST['nama_semester'];
+
+    $query = "UPDATE tahun_semester SET nama_tahun = '$tahun', nama_semester = '$semester' WHERE tahun_semester_id = '$id'";
+    $result = mysqli_query($koneksi, $query);
+
+    if($result){
+        echo "<script>alert('Berhasil mengubah tahun ajar!');</script>";
+        header("Location: index.php?status=updated");
     } else {
-        echo "<script>alert('Gagal menambahkan tahun ajar!');window.location.href='index.php?status=failed';</script>";
+        echo "<script>alert('Gagal mengubah tahun ajar!');</script>";
+        header("Location: index.php?status=failed");
     }
 }
 ?>
