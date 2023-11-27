@@ -17,7 +17,7 @@
                 kelas.nama_kelas,
                 ujian.nama_ujian,
                 tahun_semester.nama_tahun,
-                semester.nama_semester
+                tahun_semester.nama_semester
             FROM 
                 siswa_profiles
             JOIN 
@@ -28,8 +28,6 @@
                 kelas ON ujian.kelas_id = kelas.kelas_id
             JOIN 
                 tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
-            JOIN
-                semester ON tahun_semester.tahun_semester_id = semester.tahun_semester_id
             WHERE
                 kelas.nama_kelas LIKE 'VIII__';";
 
