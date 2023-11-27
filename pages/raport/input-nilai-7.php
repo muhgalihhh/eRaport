@@ -37,8 +37,11 @@
                         exit;
                     }
                 }
-                // header("Location: index.php?status=added");
-                // exit;
+               echo "<script>
+                    alert('Data berhasil ditambahkan');
+                    window.location.href='index.php?status=added';
+                    </script>";
+                exit;
             }else{
                 header("Location: index.php?status=failed");
                 exit;
