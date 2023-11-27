@@ -23,8 +23,6 @@
     $dataJumlahGuru = mysqli_fetch_assoc($resultJumlahGuru);
     $dataJumlahKelas = mysqli_fetch_assoc($resultJumlahKelas);
     $dataJumlahAdmin = mysqli_fetch_assoc($resultJumlahAdmin);
-
-    
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -34,7 +32,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Welcome <?=$_SESSION['role']?> !</h3>
+                    <h3 class="page-title">Welcome <?=$_SESSION['role']?>, <?=$_SESSION['nama']?>!</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                     </ul>
@@ -58,7 +56,7 @@
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                            <i class="fa fa-chalkboard-teacher"></i>
+                            <i class="fa fa-user-tie"></i>
                         </span>
                         <div class="dash-widget-info">
                             <h3><?=$dataJumlahGuru['jumlah_guru']?></h3>
@@ -70,7 +68,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                        <span class="dash-widget-icon"><i class="fa fa-school"></i></span>
                         <div class="dash-widget-info">
                             <h3><?=$dataJumlahKelas['jumlah_kelas']?></h3>
                             <span>Kelas</span>
