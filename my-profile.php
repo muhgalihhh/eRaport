@@ -93,8 +93,11 @@
                             <li class="list-group-item">kelas : <?=$_SESSION['nama_kelas']?></li>
                             <li class="list-group-item">No Telepon : <?=$_SESSION['notelp']?></li>
                             <li class="list-group-item">Jenis Kelamin : <?=$_SESSION['jk']?></li>
-
-
+                            <li class="list-group-item">Tempat, Tanggal Lahir : <?=$_SESSION['tempat_lahir']?>,
+                                <?=$_SESSION['tanggal_lahir']?></li>
+                            <li class="list-group-item">Alamat : <?=$_SESSION['alamat']?></li>
+                            <?php
+                            }
                             ?>
 
                         </ul>

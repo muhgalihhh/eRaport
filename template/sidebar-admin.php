@@ -55,7 +55,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                       <a class="dropdown-item" href="/my-profile.php">My Profile</a>
+                    <a class="dropdown-item" href="/my-profile.php">My Profile</a>
                     <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
             </div>
@@ -82,10 +82,10 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/guru">Guru</a></li>
-                                <li><a href="pages/kelas">Kelas</a></li>
-                                <li><a href="pages/mapel">Mata Pelajaran</a></li>
-                                <li><a href="pages/tahun-ajar">Tahun ajar/Semester</a></li>
+                                <li><a href="pages/guru/index.php">Guru</a></li>
+                                <li><a href="pages/kelas/index.php">Kelas</a></li>
+                                <li><a href="pages/mapel/index.php">Mata Pelajaran</a></li>
+                                <li><a href="pages/tahun-ajar/index.php">Tahun ajar/Semester</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">
