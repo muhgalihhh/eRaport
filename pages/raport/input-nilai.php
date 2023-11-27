@@ -134,14 +134,24 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="slider">Pilih Nilai:</label>
-                                                    <input type="range" class="form-control-range" id="slider" min="0"
-                                                        max="100">
-                                                    <p id="sliderValue">Nilai: 0</p>
+                                                    <label for="mapel text-bold">Nilai Mata Pelajaran</label>
+                                                    <hr class="mt-0">
+
+                                                    <?php
+                                                                                // Query untuk mengambil data mata pelajaran dari database
+                                                            $sqlMapel = "SELECT * FROM mata_pelajaran";
+                                                            $queryMapel = mysqli_query($koneksi, $sqlMapel);
+                                                            
+                                                            while ($dataMapel = mysqli_fetch_assoc($queryMapel)) {
+                                                                echo '<div class="form-group">';
+                                                                echo '<label for="nilai_' . $dataMapel['mapel_id'] . '">' . $dataMapel['nama_mapel'] . '</label>';
+                                                                echo '<input type="range" class="form-control-range" id="slider" name="nilai_' . $dataMapel['mapel_id'] . '" min="0" max="100">';
+                                                                echo '<p id="sliderValue">Nilai: 0</p>';
+                                                                echo '</div>';
+                                                            }
+                                                        ?>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="row">
