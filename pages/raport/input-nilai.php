@@ -8,6 +8,44 @@
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
+
+    if(isset($_POST['simpan'])){
+        $tahun_ajaran = $_POST['tahun_ajaran'];
+        $semester = $_POST['semester'];
+        $nama_ujian = $_POST['nama_ujian'];
+        $tanggal = $_POST['tanggal'];
+        $kelas = $_POST['kelas'];
+        $nama = $_POST['nama'];
+        $mapel = $_POST['mapel'];
+        $nilai = $_POST['nilai'];
+
+        // Insert ke ujian
+        $query1 = "INSERT INTO ujian (nama_ujian, tanggal, kelas_id, tahun_semester_id) 
+        VALUES ('$nama_ujian','$tanggal','$kelas','$tahun_ajaran');";
+
+        if(mysqli_query($koneksi, $query1)){
+            $result = mysqli_query($koneksi, "SELECT LAST_INSERT_ID() as ujian_id");
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+                $ujian_id = $row['ujian_id'];
+                $query2 = "INSERT INTO nilai_ujian (user_id, ujian_id, nilai) 
+                        VALUES ('$nama', '$ujian_id', '$nilai');";
+                if(mysqli_query($koneksi, $query2)){
+                    header("Location: index.php?status=added");
+                    exit;
+                } else {
+                    header("Location: index.php?status=failed");
+                    exit;
+                }
+            } else {
+                header("Location: index.php?status=failed");
+                exit;
+            }
+        } else {
+            header("Location: index.php?status=failed");
+            exit;
+        }
+    }
 ?>
 
 
