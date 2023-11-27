@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 04:09 AM
+-- Generation Time: Nov 27, 2023 at 03:44 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -106,7 +106,7 @@ CREATE TABLE `mata_pelajaran` (
 --
 
 INSERT INTO `mata_pelajaran` (`mapel_id`, `nama_mapel`) VALUES
-(7, 'Matematika');
+(7, 'Ilmu Pengetahuan Alam');
 
 -- --------------------------------------------------------
 
@@ -173,6 +173,26 @@ INSERT INTO `sekolah` (`sekolah_id`, `nama_sekolah`, `npsn`, `jenjang`, `status`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `semester`
+--
+
+CREATE TABLE `semester` (
+  `id` int(11) NOT NULL,
+  `nama_semester` varchar(10) NOT NULL,
+  `tahun_semester_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `semester`
+--
+
+INSERT INTO `semester` (`id`, `nama_semester`, `tahun_semester_id`) VALUES
+(4, 'ganjil', 5),
+(5, 'genap', 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `siswa_profiles`
 --
 
@@ -188,6 +208,13 @@ CREATE TABLE `siswa_profiles` (
   `kelas_id` int(11) DEFAULT NULL,
   `foto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `siswa_profiles`
+--
+
+INSERT INTO `siswa_profiles` (`user_id`, `nama`, `NIS`, `alamat`, `jk`, `tempat_lahir`, `tanggal_lahir`, `notelp`, `kelas_id`, `foto`) VALUES
+(27, 'MUHAMAD GALIH', 'SK0000001', 'Purbalingga', 'L', 'Cilacap', '2003-01-14', '08023812083', 2, '../../asset/image/default.jpg');
 
 --
 -- Triggers `siswa_profiles`
@@ -207,9 +234,15 @@ DELIMITER ;
 
 CREATE TABLE `tahun_semester` (
   `tahun_semester_id` int(11) NOT NULL,
-  `nama_tahun` varchar(20) NOT NULL,
-  `nama_semester` varchar(10) NOT NULL
+  `nama_tahun` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tahun_semester`
+--
+
+INSERT INTO `tahun_semester` (`tahun_semester_id`, `nama_tahun`) VALUES
+(5, '2022/2023');
 
 -- --------------------------------------------------------
 
@@ -246,7 +279,8 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES
 (4, 'admin1', '$2y$10$T3cSSRX5A9ZNccuzfqNm2.QIFA.JQpNoFcT1OjNrXvSETv55qLzfi', 'admin'),
 (23, 'admin3', '$2y$10$CkQizkExGp8HjAPrGCXOReoQf6RMz99PuXnoNV2q5kRB.9x3lsEXu', 'admin'),
 (24, 'admin2', '$2y$10$84Y0lf22i.SqhBpdjsKhCug7JNweJgHEaypnfkHGaA2jRghTQuX3y', 'admin'),
-(26, 'supardi1', '$2y$10$rKfOGPLL/5sC6sjIqXFHTuxIH41UDU4/0vcOsqnz4mP4O/KaxiNoy', 'walikelas');
+(26, 'supardi1', '$2y$10$rKfOGPLL/5sC6sjIqXFHTuxIH41UDU4/0vcOsqnz4mP4O/KaxiNoy', 'walikelas'),
+(27, 'muhgalihhh', '$2y$10$JymaYdJhxBzZyrrOB1JLHu90ewzeHcB0AkFoW9hHEyxZBRFIX4WFa', 'siswa');
 
 -- --------------------------------------------------------
 
@@ -333,6 +367,13 @@ ALTER TABLE `sekolah`
   ADD PRIMARY KEY (`sekolah_id`);
 
 --
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_semester_tahunajaran` (`tahun_semester_id`);
+
+--
 -- Indexes for table `siswa_profiles`
 --
 ALTER TABLE `siswa_profiles`
@@ -393,7 +434,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `nilai_ujian`
@@ -408,16 +449,22 @@ ALTER TABLE `sekolah`
   MODIFY `sekolah_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `siswa_profiles`
 --
 ALTER TABLE `siswa_profiles`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tahun_semester`
 --
 ALTER TABLE `tahun_semester`
-  MODIFY `tahun_semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tahun_semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ujian`
@@ -429,7 +476,7 @@ ALTER TABLE `ujian`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `walikelas_profiles`
@@ -460,6 +507,12 @@ ALTER TABLE `nilai_ujian`
   ADD CONSTRAINT `nilai_ujian_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `siswa_profiles` (`user_id`),
   ADD CONSTRAINT `nilai_ujian_ibfk_2` FOREIGN KEY (`ujian_id`) REFERENCES `ujian` (`ujian_id`),
   ADD CONSTRAINT `nilai_ujian_ibfk_3` FOREIGN KEY (`mapel_id`) REFERENCES `mata_pelajaran` (`mapel_id`);
+
+--
+-- Constraints for table `semester`
+--
+ALTER TABLE `semester`
+  ADD CONSTRAINT `fk_semester_tahunajaran` FOREIGN KEY (`tahun_semester_id`) REFERENCES `tahun_semester` (`tahun_semester_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `siswa_profiles`

@@ -107,19 +107,6 @@
                                                                 ?>
                                                 </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="kelas">Kelas</label>
-                                                <select name="kelas" id="kelas" required class="form-control">
-                                                    <option value="">-- Pilih Kelas --</option>
-                                                    <?php
-                                                                $sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
-                                                                $query = mysqli_query($koneksi, $sql);
-                                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                                    echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
-                                                                }
-                                                                ?>
-                                                </select>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
