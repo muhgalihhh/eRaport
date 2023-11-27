@@ -82,10 +82,12 @@
                             <span>Akademik</span>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
+                            <a href="#"><i class="la la-download"></i> <span> Unduh Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../pages/raport/">Raport</a></li>
+                                <li><a href="/pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="/pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="/pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                     </ul>

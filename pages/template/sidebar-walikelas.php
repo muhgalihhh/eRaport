@@ -40,7 +40,7 @@
                         <span class="user-img"><img src="<?=$_SESSION['foto']?>" alt="">
                             <span class="status online"></span>
                         </span>
-                        <span>Admin</span>
+                        <span><?=$_SESSION['role']?></span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="../../my-profile.php">My Profile</a>
@@ -83,12 +83,12 @@
                             <span>Akademik</span>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
+                            <a href="#"><i class="la la-download"></i> <span> Unduh Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../raport/index.php">Kelas 7</a></li>
-                                <li><a href="../raport/index2.php">Kelas 8</a></li>
-                                <li><a href="../raport/index3.php">Kelas 9</a></li>
+                                <li><a href="/pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="/pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="/pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                     </ul>

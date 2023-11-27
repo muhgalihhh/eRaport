@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once "koneksi.php";
     if($_SESSION['role'] == 'admin'){
         require_once "sidebar-admin.php";

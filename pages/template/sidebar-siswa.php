@@ -40,7 +40,7 @@
                         <span class="user-img"><img src="<?=$_SESSION['foto']?>" alt="">
                             <span class="status online"></span>
                         </span>
-                        <span>Admin</span>
+                        <span><?=$_SESSION['role']?></span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="../../my-profile.php">My Profile</a>
@@ -69,47 +69,15 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="../../<?=$_SESSION['mainurl']?>">Admin Dashboard</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="../guru/">Guru</a></li>
-                                <li><a href="../kelas/">Kelas</a></li>
-                                <li><a href="../mapel/">Mata Pelajaran</a></li>
-                                <li><a href="../tahun-ajar/">Tahun ajar/Semester</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-title">
                             <span>Akademik</span>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
+                            <a href="#"><i class="la la-download"></i> <span> Unduh Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../raport/index.php">Kelas 7</a></li>
-                                <li><a href="../raport/index2.php">Kelas 8</a></li>
-                                <li><a href="../raport/index3.php">Kelas 9</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-title">
-                            <span>Admin</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-user"></i> <span> User </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="../../pages/user-admin/">Input Admin</a></li>
-                                <li><a href="../../pages/user-siswa/">Input Siswa</a></li>
-                                <li><a href="../../pages/user-walikelas/">Input Walikelas</a></li>
+                                <li><a href="/pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="/pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="/pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                     </ul>

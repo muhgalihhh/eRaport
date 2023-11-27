@@ -95,9 +95,9 @@
                             <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../raport/index.php">Kelas 7</a></li>
-                                <li><a href="../raport/index2.php">Kelas 8</a></li>
-                                <li><a href="../raport/index3.php">Kelas 9</a></li>
+                                <li><a href="../raport/home.php">Kelas 7</a></li>
+                                <li><a href="../raport/home2.php">Kelas 8</a></li>
+                                <li><a href="../raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">

@@ -1,25 +1,20 @@
 <?php 
-session_start();
-if(!isset($_SESSION['role'])){
-    header("Location: ../../index.php");
-    exit;
-}
 $title = "Data Raport - Raport";
 $msg = "Data Raport";
 require_once '../../koneksi.php';
 require_once '../template/header.php';
 require_once '../template/sidebar.php';
-
+if(!isset($_SESSION['role'])){
+    header("Location: ../../index.php");
+    exit;
+}
 require_once '../template/message.php';
 if($_SESSION['role'] == 'admin') {
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'VII__';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'siswa') {
-    $kelas = $_SESSION['kelas'];
-    $user = $_SESSION['user_id'];
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '.$kelas.' AND siswa_profiles.user_id = '.$user.';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."' AND siswa_profiles.user_id = '".$_SESSION['user_id']."' AND kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'walikelas') {
-    $kelas = $_SESSION['kelas'];
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '.$kelas.';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."' AND kelas.nama_kelas LIKE 'IX__';";
 }
 ?>
 <!-- Page Wrapper -->
@@ -34,7 +29,7 @@ if($_SESSION['role'] == 'admin') {
                     <h3 class="page-title">Data Raport</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Raport Kelas 7</li>
+                        <li class="breadcrumb-item active">Data Raport Kelas 9</li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +45,7 @@ if($_SESSION['role'] == 'admin') {
             ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title">Data Raport Kelas 7</h5>
+                        <h5 class="card-title">Data Raport Kelas 9</h5>
                     </div>
                     <div class="card-body">
                         <input type="text" id="searchInput" placeholder="Search..." class="form-control col-6 mb-2">
@@ -91,11 +86,6 @@ if($_SESSION['role'] == 'admin') {
                                             <td><?= $row['nama'] ?></td>
                                             <td><?= $row['nama_kelas'] ?></td>
                                             <td class="text-center">
-                                                <?php if($_SESSION['role'] == 'siswa') { ?>
-                                                <a href="raport.php" class="btn btn-success btn-sm"><i
-                                                        class="fa fa-print"></i></a>
-                                                <?php
-                                                }else if($_SESSION['role'] == 'walikelas' || $_SESSION['role'] == 'admin') { ?>
                                                 <a href="raport.php" class="btn btn-success btn-sm"><i
                                                         class="fa fa-print"></i></a>
                                                 <a href="index.php?id=<?=$row['user_id']?>"
@@ -103,7 +93,6 @@ if($_SESSION['role'] == 'admin') {
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#deleteModal<?= $row['user_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
-                                                <?php } ?>
                                             </td>
                                             <!-- Delete Modal -->
                                             <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
