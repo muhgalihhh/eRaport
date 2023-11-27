@@ -11,24 +11,28 @@
     require_once '../template/sidebar.php';
     require_once '../template/message.php';
     $query = "SELECT 
-            siswa_profiles.foto,
-            siswa_profiles.NIS,
-            siswa_profiles.nama AS nama_siswa_profiles,
-            kelas.nama_kelas,
-            ujian.nama_ujian,
-            tahun_semester.nama_tahun,
-            tahun_semester.nama_semester
-        FROM 
-            siswa_profiles
-        JOIN 
-            nilai_ujian ON siswa_profiles.user_id = nilai_ujian.user_id
-        JOIN 
-            ujian ON nilai_ujian.ujian_id = ujian.ujian_id
-        JOIN 
-            kelas ON ujian.kelas_id = kelas.kelas_id
-        JOIN 
-            tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id;
-        ";
+                siswa_profiles.foto,
+                siswa_profiles.NIS,
+                siswa_profiles.nama AS nama_siswa,
+                kelas.nama_kelas,
+                ujian.nama_ujian,
+                tahun_semester.nama_tahun,
+                semester.nama_semester
+            FROM 
+                siswa_profiles
+            JOIN 
+                nilai_ujian ON siswa_profiles.user_id = nilai_ujian.user_id
+            JOIN 
+                ujian ON nilai_ujian.ujian_id = ujian.ujian_id
+            JOIN 
+                kelas ON ujian.kelas_id = kelas.kelas_id
+            JOIN 
+                tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
+            JOIN
+                semester ON tahun_semester.tahun_semester_id = semester.tahun_semester_id
+            WHERE
+                kelas.nama_kelas LIKE 'VIII__';";
+
     $result = mysqli_query($koneksi, $query);
 ?>
 <!-- Page Wrapper -->
@@ -36,15 +40,14 @@
 
     <!-- Page Content -->
     <div class="content container-fluid">
-
         <!-- Page Header -->
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
                     <h3 class="page-title">Data Raport</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Raport Kelas 7</li>
+                        <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Raport Kelas 8</li>
                     </ul>
                 </div>
             </div>
@@ -60,8 +63,8 @@
             ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title">Data Raport Kelas 7</h5>
-                        <a class="btn btn-primary" href="input-admin.php"><i class="fa fa-plus"></i> Tambah Nilai
+                        <h5 class="card-title">Data Raport Kelas 8</h5>
+                        <a class="btn btn-primary" href="input-nilai-8.php"><i class="fa fa-plus"></i> Tambah Nilai
                             Raport</a>
                     </div>
                     <div class="card-body">
@@ -103,7 +106,7 @@
                                             <td><img src="<?= $row['foto'] ?>" alt="Foto" width="40px" height="40px"
                                                     class="rounded-circle shadow-lg"></td>
                                             <td><?= $row['NIS'] ?></td>
-                                            <td><?= $row['nama'] ?></td>
+                                            <td><?= $row['nama_siswa'] ?></td>
                                             <td><?= $row['nama_kelas'] ?></td>
                                             <td><?= $row['nama_ujian'] ?></td>
                                             <td><?=$row['nama_tahun']?>, <?= $row['nama_semester'] ?></td>

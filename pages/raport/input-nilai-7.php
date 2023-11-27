@@ -138,7 +138,7 @@
                                                 <select name="kelas" id="kelas" class="form-control">
                                                     <option value="">-- Pilih Kelas --</option>
                                                     <?php
-                                                                $sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
+                                                                $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE 'VII__' ORDER BY nama_kelas ASC";
                                                                 $query = mysqli_query($koneksi, $sql);
                                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                                     echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
@@ -165,6 +165,7 @@
                                                                 $sql = "SELECT * FROM siswa_profiles 
                                                                         JOIN users ON siswa_profiles.user_id = users.user_id 
                                                                         JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id 
+                                                                        WHERE kelas.nama_kelas LIKE 'VII__'
                                                                         ORDER BY nama_kelas ASC";
                                                                 $query = mysqli_query($koneksi, $sql);
                                                                 while ($data = mysqli_fetch_assoc($query)) {
