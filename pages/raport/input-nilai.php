@@ -37,8 +37,8 @@
                         exit;
                     }
                 }
-                header("Location: index.php?status=added");
-                exit;
+                // header("Location: index.php?status=added");
+                // exit;
             }else{
                 header("Location: index.php?status=failed");
                 exit;
