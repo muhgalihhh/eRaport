@@ -89,8 +89,8 @@
                             <li class="list-group-item">Username : <?=$_SESSION['username']?></li>
                             <li class="list-group-item">Password : *****</li>
                             <li class="list-group-item">Nama : <?=$_SESSION['nama']?></li>
-                            <li class="list-group-item">NIS : <?=$_SESSION['nis']?></li>
-                            <li class="list-group-item">kelas : <?=$_SESSION['nama_kelas']?></li>
+                            <li class="list-group-item">NIS : <?=$_SESSION['NIS']?></li>
+                            <li class="list-group-item">kelas : <?=$_SESSION['kelas']?></li>
                             <li class="list-group-item">No Telepon : <?=$_SESSION['notelp']?></li>
                             <li class="list-group-item">Jenis Kelamin : <?=$_SESSION['jk']?></li>
                             <li class="list-group-item">Tempat, Tanggal Lahir : <?=$_SESSION['tempat_lahir']?>,
