@@ -9,9 +9,6 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['role'];
-
-    // Validate and sanitize input as needed
-
     $query = "SELECT *
               FROM users
               INNER JOIN roles ON users.role = roles.role_name

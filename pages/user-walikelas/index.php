@@ -33,7 +33,8 @@
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">Data Profile dan Akun Wali Kelas</h5>
-                        <a class="btn btn-primary" href="input-siswa.php"><i class="fa fa-plus"></i> Tambah Data Wali
+                        <a class="btn btn-primary" href="input-walikelas.php"><i class="fa fa-plus"></i> Tambah Data
+                            Wali
                             Kelas</a>
                     </div>
                     <div class="card-body">
@@ -72,7 +73,35 @@
                                     <tbody>
                                         <?php
                                             $no = 1;
+                                            $query= "SELECT * FROM
+                                                    walikelas_profiles
+                                                    JOIN
+                                                        users ON walikelas_profiles.user_id = users.user_id
+                                                    JOIN
+                                                        kelas ON walikelas_profiles.kelas_id = kelas.kelas_id;";
+                                            $result = mysqli_query($koneksi, $query);
+                                            while($row = mysqli_fetch_assoc($result)):
                                         ?>
+                                        <tr>
+                                            <td><?=$no?></td>
+                                            <td>
+                                                <img src="<?=$row['foto']?>" width="40" height="40"
+                                                    alt="<?=$row['nama']?>" class="rounded-circle">
+                                            </td>
+                                            <td><?=$row['username']?></td>
+                                            <td><?=$row['nama']?></td>
+                                            <td><?=$row['nip']?></td>
+                                            <td><?=$row['jk']?></td>
+                                            <td><?=$row['nama_kelas']?></td>
+                                            <td><?=$row['alamat']?></td>
+                                            <td><?=$row['notelp']?></td>
+                                            <td>
+                                                <a href="edit.php?id=<?=$row['user_id']?>"
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                    data-target="#deleteModal<?= $row['user_id'] ?>"><i
+                                                        class="fa fa-trash"></i></button>
+                                        </tr>
                                         <!-- Delete Modal -->
                                         <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -98,6 +127,10 @@
                                             </div>
                                         </div>
                                         <!-- /Delete Modal -->
+                                        <?php
+                                            $no++;
+                                            endwhile;
+                                        ?>
 
                                     </tbody>
                                 </div>
