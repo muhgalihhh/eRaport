@@ -19,14 +19,15 @@
 
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="../asset/admin-template/assets/css/font-awesome.min.css">
-    <!-- online font awesome-->
 
+    <!-- online font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="../asset/admin-template/assets/css/line-awesome.min.css">
 
     <!-- Chart CSS -->
     <link rel="stylesheet" href="../asset/admin-template/assets/plugins/morris/morris.css">
-
+    <!-- font awesome online -->
     <!-- Main CSS -->
     <link rel="stylesheet" href="../asset/admin-template/assets/css/style.css">
 

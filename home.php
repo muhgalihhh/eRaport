@@ -58,7 +58,7 @@
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                            <i class="fa fa-chalkboard-teacher"></i>
+                           <i class="fa fa-user-tie"></i>
                         </span>
                         <div class="dash-widget-info">
                             <h3><?=$dataJumlahGuru['jumlah_guru']?></h3>
@@ -70,7 +70,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                        <span class="dash-widget-icon"><i class="fa fa-school"></i></span>
                         <div class="dash-widget-info">
                             <h3><?=$dataJumlahKelas['jumlah_kelas']?></h3>
                             <span>Kelas</span>

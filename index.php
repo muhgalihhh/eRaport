@@ -103,7 +103,7 @@ if(isset($_GET['status'])){
             <div class="container ">
                 <!-- Account Logo -->
                 <div class="account-logo">
-                    <h2 class="text-center mb-4 mt-4">SMP N XXXX</h2>
+                    <h2 class="text-center mb-4 mt-4">SMP N 01 Konohagakure</h2>
                     <a href="index.php"><img src="./asset/image/logo.png" alt="Tut Wuri Handayani"></a>
                 </div>
                 <!-- /Account Logo -->
