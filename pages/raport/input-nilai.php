@@ -16,8 +16,6 @@
         $tanggal = $_POST['tanggal'];
         $kelas = $_POST['kelas'];
         $nama = $_POST['nama'];
-        $mapel = $_POST['mapel'];
-        $nilai = $_POST['nilai'];
 
         // Insert ke ujian
         $query1 = "INSERT INTO ujian (nama_ujian, tanggal, kelas_id, tahun_semester_id) 
@@ -28,20 +26,24 @@
             $row = mysqli_fetch_assoc($result);
             if ($row) {
                 $ujian_id = $row['ujian_id'];
-                $query2 = "INSERT INTO nilai_ujian (user_id, ujian_id, nilai) 
-                        VALUES ('$nama', '$ujian_id', '$nilai');";
-                if(mysqli_query($koneksi, $query2)){
-                    header("Location: index.php?status=added");
-                    exit;
-                } else {
-                    header("Location: index.php?status=failed");
-                    exit;
+                $mapel_ids = $_POST['mapel_id'];
+                
+                foreach ($mapel_ids as $mapel_id){
+                    $nilai = $_POST['nilai_' . $mapel_id];
+                    $query2 = "INSERT INTO nilai_ujian (user_id, ujian_id, mapel_id, nilai) 
+                       VALUES ('$nama', '$ujian_id', '$mapel_id', '$nilai');";
+                    if(!mysqli_query($koneksi, $query2)){
+                        header("Location: index.php?status=failed");
+                        exit;
+                    }
                 }
-            } else {
+                header("Location: index.php?status=added");
+                exit;
+            }else{
                 header("Location: index.php?status=failed");
                 exit;
             }
-        } else {
+        }else{
             header("Location: index.php?status=failed");
             exit;
         }
@@ -181,10 +183,12 @@
                                                             $queryMapel = mysqli_query($koneksi, $sqlMapel);
                                                             
                                                             while ($dataMapel = mysqli_fetch_assoc($queryMapel)) {
+                                                                $mapel_id = $dataMapel['mapel_id'];
                                                                 echo '<div class="form-group">';
-                                                                echo '<label for="nilai_' . $dataMapel['mapel_id'] . '">' . $dataMapel['nama_mapel'] . '</label>';
-                                                                echo '<input type="range" class="form-control-range" id="slider" name="nilai_' . $dataMapel['mapel_id'] . '" min="0" max="100">';
-                                                                echo '<p id="sliderValue">Nilai: 0</p>';
+                                                                echo '<label for="nilai_' . $mapel_id . '">' . $dataMapel['nama_mapel'] . '</label>';
+                                                                echo '<input type="range" class="form-control-range" id="slider" name="nilai_' . $mapel_id . '" min="0" max="100">';
+                                                                echo '<p id="sliderValue' . $mapel_id . '">Nilai: 0</p>';
+                                                                echo '<input type="hidden" name="mapel_id[]" value="' . $mapel_id . '">';
                                                                 echo '</div>';
                                                             }
                                                         ?>
