@@ -1,20 +1,17 @@
-<?php 
+<?php
+session_start();
 $title = "Data Raport - Raport";
 $msg = "Data Raport";
 require_once '../../koneksi.php';
 require_once '../template/header.php';
 require_once '../template/sidebar.php';
-if(!isset($_SESSION['role'])){
-    header("Location: ../../index.php");
-    exit;
-}
 require_once '../template/message.php';
 if($_SESSION['role'] == 'admin') {
     $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'siswa') {
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."' AND siswa_profiles.user_id = '".$_SESSION['user_id']."' AND kelas.nama_kelas LIKE 'IX__';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '".$_SESSION['user_id']."' AND kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'walikelas') {
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."' AND kelas.nama_kelas LIKE 'IX__';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."';";
 }
 ?>
 <!-- Page Wrapper -->
