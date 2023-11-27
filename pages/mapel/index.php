@@ -45,7 +45,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Formulir input Mata Pelajaran di sini -->
-                        <form action="proses.php" method="POST">
+                        <form action="mapel/proses.php" method="POST">
                             <div class="form-group">
                                 <label for="mapel">Mata Pelajaran</label>
                                 <input type="text" name="mapel" id="mapel" class="form-control" required>
