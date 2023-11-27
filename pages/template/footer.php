@@ -95,18 +95,20 @@ $(document).ready(function() {
 });
 </script>
 <!-- Slider -->
-\<script>
+<script>
 // Mendapatkan elemen slider
-var slider = document.getElementById("slider");
+var sliders = document.querySelectorAll("[id^='slider_']");
 
 // Mendapatkan elemen untuk menampilkan nilai slider
-var sliderValue = document.getElementById("sliderValue");
+var sliderValues = document.querySelectorAll("[id^='sliderValue_']");
 
 // Menetapkan fungsi yang akan dijalankan ketika nilai slider berubah
-slider.oninput = function() {
-    // Menampilkan nilai slider pada elemen
-    sliderValue.innerHTML = "Nilai: " + this.value;
-}
+sliders.forEach(function(slider, index) {
+    slider.oninput = function() {
+        // Menampilkan nilai slider pada elemen
+        sliderValues[index].innerHTML = "Nilai: " + this.value;
+    };
+});
 </script>
 </body>
 

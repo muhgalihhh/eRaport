@@ -186,8 +186,8 @@
                                                                 $mapel_id = $dataMapel['mapel_id'];
                                                                 echo '<div class="form-group">';
                                                                 echo '<label for="nilai_' . $mapel_id . '">' . $dataMapel['nama_mapel'] . '</label>';
-                                                                echo '<input type="range" class="form-control-range" id="slider" name="nilai_' . $mapel_id . '" min="0" max="100">';
-                                                                echo '<p id="sliderValue' . $mapel_id . '">Nilai: 0</p>';
+                                                                echo '<input type="range" class="form-control-range" id="slider_' . $mapel_id . '" name="nilai_' . $mapel_id . '" min="0" max="100">';
+                                                                echo '<p id="sliderValue_' . $mapel_id . '">Nilai: 0</p>';
                                                                 echo '<input type="hidden" name="mapel_id[]" value="' . $mapel_id . '">';
                                                                 echo '</div>';
                                                             }
