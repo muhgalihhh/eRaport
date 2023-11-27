@@ -30,7 +30,9 @@
                 tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
             JOIN
                 semester ON tahun_semester.tahun_semester_id = semester.tahun_semester_id
-                 WHERE kelas.nama_kelas LIKE 'VII__';";
+            WHERE
+                kelas.nama_kelas LIKE 'VII__';";
+
     $result = mysqli_query($koneksi, $query);
 ?>
 <!-- Page Wrapper -->
@@ -62,7 +64,7 @@
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">Data Raport Kelas 7</h5>
-                        <a class="btn btn-primary" href="input-nilai.php"><i class="fa fa-plus"></i> Tambah Nilai
+                        <a class="btn btn-primary" href="input-nilai-7.php"><i class="fa fa-plus"></i> Tambah Nilai
                             Raport</a>
                     </div>
                     <div class="card-body">

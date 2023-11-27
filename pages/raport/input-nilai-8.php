@@ -37,11 +37,8 @@
                         exit;
                     }
                 }
-               echo "<script>
-                    alert('Data berhasil ditambahkan');
-                    window.location.href='index.php?status=added';
-                    </script>";
-                exit;
+                // header("Location: index.php?status=added");
+                // exit;
             }else{
                 header("Location: index.php?status=failed");
                 exit;
@@ -67,7 +64,7 @@
                     <h3 class="page-title">Tambah Data Profile dan Akun</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="index.php">Data Raport Kelas 7</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Data Raport Kelas 8</a></li>
                         <li class="breadcrumb-item active">Tambah Data Profile dan Akun</li>
                     </ul>
                 </div>
@@ -141,7 +138,7 @@
                                                 <select name="kelas" id="kelas" class="form-control">
                                                     <option value="">-- Pilih Kelas --</option>
                                                     <?php
-                                                                $sql = "SELECT * FROM kelas ORDER BY nama_kelas ASC";
+                                                                $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE 'VIII__' ORDER BY nama_kelas ASC";
                                                                 $query = mysqli_query($koneksi, $sql);
                                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                                     echo '<option value="'.$data['kelas_id'].'">'.$data['nama_kelas'].'</option>';
@@ -168,6 +165,7 @@
                                                                 $sql = "SELECT * FROM siswa_profiles 
                                                                         JOIN users ON siswa_profiles.user_id = users.user_id 
                                                                         JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id 
+                                                                        WHERE kelas.nama_kelas LIKE 'VIII__'
                                                                         ORDER BY nama_kelas ASC";
                                                                 $query = mysqli_query($koneksi, $sql);
                                                                 while ($data = mysqli_fetch_assoc($query)) {
