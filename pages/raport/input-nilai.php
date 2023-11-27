@@ -31,7 +31,7 @@
                 foreach ($mapel_ids as $mapel_id){
                     $nilai = $_POST['nilai_' . $mapel_id];
                     $query2 = "INSERT INTO nilai_ujian (user_id, ujian_id, mapel_id, nilai) 
-                       VALUES ('$nama', '$ujian_id', '$mapel_id', '$nilai');";
+                    VALUES ('$nama', '$ujian_id', '$mapel_id', '$nilai');";
                     if(!mysqli_query($koneksi, $query2)){
                         header("Location: index.php?status=failed");
                         exit;
