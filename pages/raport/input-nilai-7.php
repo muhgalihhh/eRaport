@@ -37,7 +37,7 @@
                         exit;
                     }
                 }
-               echo "<script>
+                echo "<script>
                     alert('Data berhasil ditambahkan');
                     window.location.href='index.php?status=added';
                     </script>";
@@ -90,38 +90,18 @@
                                             <h5>Ujian</h5>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="tahun_ajaran">Tahun Ajaran</label>
-                                                        <select name="tahun_ajaran" id="tahun_ajaran" required
-                                                            class="form-control">
-                                                            <option value="">-- Pilih Tahun Ajaran --</option>
-                                                            <?php
-                                                            $sql = "SELECT * FROM tahun_semester ORDER BY tahun_semester_id DESC";
-                                                            $query = mysqli_query($koneksi, $sql);
-                                                            while ($data = mysqli_fetch_assoc($query)) {
-                                                                echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_tahun'].'</option>';
-                                                            }
-                                                        ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label for="semester">Semester</label>
-                                                    <select name="semester" id="semester" required class="form-control">
-                                                        <option value="">-- Pilih Semester --</option>
-                                                        <?php
-                                                            $sql = "SELECT * FROM semester 
-                                                                    JOIN tahun_semester ON semester.tahun_semester_id = tahun_semester.tahun_semester_id 
-                                                                    ORDER BY tahun_semester.tahun_semester_id DESC";
-                                                            $query = mysqli_query($koneksi, $sql);
-                                                            while ($data = mysqli_fetch_assoc($query)) {
-                                                                echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_semester'].'</option>';
-                                                            }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="tahun_ajaran">Tahun Ajaran</label>
+                                                <select name="tahun_ajaran" id="tahun_ajaran" class="form-control">
+                                                    <option value="">-- Pilih Tahun Ajaran --</option>
+                                                    <?php
+                                                        $sql = "SELECT * FROM tahun_semester ORDER BY tahun_semester_id DESC";
+                                                        $query = mysqli_query($koneksi, $sql);
+                                                        while ($data = mysqli_fetch_assoc($query)) {
+                                                            echo '<option value="'.$data['tahun_semester_id'].'">'.$data['nama_tahun'] . ' - Semester ' . $data['nama_semester'].'</option>';
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_ujian">Nama Ujian</label>
