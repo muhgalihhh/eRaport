@@ -103,7 +103,7 @@
                                             <td><img src="<?= $row['foto'] ?>" alt="Foto" width="40px" height="40px"
                                                     class="rounded-circle shadow-lg"></td>
                                             <td><?= $row['NIS'] ?></td>
-                                            <td><?= $row['nama'] ?></td>
+                                            <td><?= $row['nama_siswa'] ?></td>
                                             <td><?= $row['nama_kelas'] ?></td>
                                             <td><?= $row['nama_ujian'] ?></td>
                                             <td><?=$row['nama_tahun']?>, <?= $row['nama_semester'] ?></td>
