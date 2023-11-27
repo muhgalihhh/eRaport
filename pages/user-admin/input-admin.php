@@ -5,6 +5,7 @@
         exit;
     }
     $title = "Data Admin - Admin";       
+    $msg = "Data Admin";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
@@ -27,39 +28,36 @@
 
             // Validation
             if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
-                echo "<script>alert('Format gambar tidak sesuai!');</script>";
-                header("Location: input-admin.php");
+                header("Location: input-admin.php?status=failed");
             } else if($ukuran_foto > 1048576) {
-                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
-                header("Location: input-admin.php");
+                header("Location: input-admin.php?status=failed");
             } else {
                 move_uploaded_file($tmp_foto, $path_foto);
             }
         }
         if($password != $repeatpassword) {
-            echo "<script>alert('Password tidak sama!');</script>";
-            header("Location: input-admin.php");
+            header("Location: input-admin.php?status=failed");
         } else {
             // Check if the username already exists
             $cek_username = "SELECT * FROM users WHERE username = '$username'";
             $query_cek = mysqli_query($koneksi, $cek_username);
             if(mysqli_num_rows($query_cek) > 0) {
-                echo "<script>alert('Username sudah digunakan!');</script>";
-                header("Location: input-admin.php");
+                header("Location: input-admin.php?status=failed");
             } else {
                 // Process to save to the database
                 $hashedpassword = password_hash($password, PASSWORD_DEFAULT); 
                 $query_user = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashedpassword', 'admin')";
                 $query_profile = "INSERT INTO admin_profiles (user_id, nama, foto) VALUES (LAST_INSERT_ID(), '$nama', '$path_foto')";
                 if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
-                    echo "<script>alert('Berhasil menambahkan admin!');window.location='index.php';</script>";
+                    echo "<script>alert('Berhasil menambahkan admin!');window.location.href='index.php?status=added';</script>";
                 } else {
-                    echo "<script>alert('Gagal menambahkan admin!');</script>";
-                    header("Location: input-admin.php");
+                    echo "<script>alert('Gagal menambahkan admin!');window.location.href='index.php?status=failed';</script>";
+                
                 }
             }
         }
     }
+    require_once '../template/message.php';
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -70,6 +68,7 @@
         <!-- Page Header -->
         <div class="page-header">
             <div class="row">
+
                 <div class="col-sm-12">
                     <h3 class="page-title">Data Admin</h3>
                     <ul class="breadcrumb">
@@ -85,6 +84,11 @@
         <!-- Content Starts -->
         <div class="row">
             <div class="col-sm-12">
+                <?php
+                    if(isset($_GET['status'])) {
+                        echo $alert;
+                    }
+                ?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card flex-fill">
                         <div class="card-header d-flex justify-content-between">

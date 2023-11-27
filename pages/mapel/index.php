@@ -3,12 +3,13 @@
     if(!isset($_SESSION['role'])){
         header("Location: ../../index.php");
     }               
-    $title = "Data Kelas - Admin";
-    $msg = "Data Kelas";
+    $title = "Data Mata Pelajaran - Admin";
+    $msg = "Data Mata Pelajaran";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
     require_once '../template/message.php';
+    
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -20,59 +21,60 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Data Kelas</h3>
+                    <h3 class="page-title">Data Mata Pelajaran</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Kelas</li>
+                        <li class="breadcrumb-item active">Data Mata Pelajaran</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <?php
-                if(isset($alert)){
-                    echo $alert;
-                }
-            ?>
         <!-- Page Header -->
-        <!-- Content Starts -->
-        <div class="row">
 
-            <div class="col-sm-4 d-flex">
-                <div class="card flex-fill">
-                    <div class="card-header">
-                        <div class="card-title">Input Kelas</div>
+
+        <!-- Input Modal -->
+        <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="inputModalLabel">Input Mata Pelajaran</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="card-body">
+                    <div class="modal-body">
+                        <!-- Formulir input Mata Pelajaran di sini -->
                         <form action="proses.php" method="POST">
                             <div class="form-group">
-                                <label for="kelas">Kelas</label>
-                                <select name="kelas" id="kelas" class="form-control" required>
-                                    <option value="">Pilih Kelas</option>
-                                    <option value="VII">VII</option>
-                                    <option value="VIII">VIII</option>
-                                    <option value="IX">IX</option>
-                                </select>
+                                <label for="mapel">Mata Pelajaran</label>
+                                <input type="text" name="mapel" id="mapel" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label for="huruf">Huruf</label>
-                                <select name="huruf" id="huruf" class="form-control" required>
-                                    <option value="">Pilih Huruf</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input id="submit" class="btn btn-primary form-control" type="submit" name="submit"
-                                    value="Simpan">
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
+        </div>
+        <!-- /Input Modal -->
+
+
+
+        <!-- Content Starts -->
+        <div class="row">
+            <div class="col-sm-12">
+                <?php
+                    if(isset($alert)){
+                        echo $alert;
+                    }
+                ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title">Data Kelas</h5>
+                        <h5 class="card-title">Data Mata Pelajaran</h5>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal"><i
+                                class="fa fa-plus"></i> Tambah Mata Pelajaran</button>
                     </div>
                     <div class="card-body">
                         <input type="text" id="searchInput" placeholder="Search..." class="form-control col-6 mb-2">
@@ -82,43 +84,44 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Kelas</th>
+                                            <th>Nama Mata Pelajaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Kelas</th>
+                                            <th>Nama Mata Pelajaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                        $query = "SELECT * FROM kelas";
+                                        $query = "SELECT * FROM mata_pelajaran";
                                         $result = mysqli_query($koneksi, $query);
                                         $no = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= $row['nama_kelas'] ?></td>
+                                            <td><?= $row['nama_mapel'] ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                    data-target="#editModal<?= $row['kelas_id'] ?>"><i
+                                                    data-target="#editModal<?= $row['mapel_id'] ?>"><i
                                                         class="fa fa-pencil"></i></button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal<?= $row['kelas_id'] ?>"><i
+                                                    data-target="#deleteModal<?= $row['mapel_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                         <!-- Edit Modal -->
-                                        <div class="modal fade" id="editModal<?= $row['kelas_id'] ?>" tabindex="-1"
+                                        <div class="modal fade" id="editModal<?= $row['mapel_id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Kelas</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">Edit Mata Pelajaran
+                                                        </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -127,22 +130,13 @@
                                                     <div class="modal-body">
                                                         <!-- Tambahkan formulir edit di sini -->
                                                         <form action="proses.php" method="POST">
-                                                            <input type="hidden" name="kelas_id"
-                                                                value="<?= $row['kelas_id'] ?>">
+                                                            <input type="hidden" name="mapel_id"
+                                                                value="<?= $row['mapel_id'] ?>">
                                                             <div class="form-group">
-                                                                <label for="edit_kelas">Kelas</label>
-                                                                <select name="edit_kelas" id="edit_kelas"
-                                                                    class="form-control" required>
-                                                                    <option value="">Pilih Kelas</option>
-                                                                    <option value="VII">VII</option>
-                                                                    <option value="VII">VIII</option>
-                                                                    <option value="VII">IX</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="edit_huruf">Huruf</label>
-                                                                <input type="text" name="edit_huruf" id="edit_huruf"
-                                                                    class="form-control" required>
+                                                                <label for="edit_mapel">Mata Pelajaran</label>
+                                                                <input type="text" name="edit_mapel" id="edit_mapel"
+                                                                    class="form-control" required
+                                                                    value="<?= $row['nama_mapel'] ?>">
                                                             </div>
                                                             <div class="form-group text-center">
                                                                 <button type="submit" class="btn btn-primary"
@@ -156,7 +150,7 @@
                                         </div>
                                         <!-- /Edit Modal -->
                                         <!-- Delete Modal -->
-                                        <div class="modal fade" id="deleteModal<?= $row['kelas_id'] ?>" tabindex="-1"
+                                        <div class="modal fade" id="deleteModal<?= $row['mapel_id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -174,7 +168,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <a href="hapus.php?id=<?=$row['kelas_id']?>"
+                                                        <a href="hapus.php?id=<?=$row['mapel_id']?>"
                                                             class="btn btn-danger">Delete</a>
                                                     </div>
                                                 </div>

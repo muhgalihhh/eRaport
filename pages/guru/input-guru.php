@@ -8,6 +8,49 @@
     require_once "../../koneksi.php";
     require_once "../template/header.php";
     require_once "../template/sidebar.php";
+    
+    if(isset($_POST["simpan"])){
+        $nama = $_POST['nama'];
+        $nip = $_POST['nip'];
+        $jk = $_POST['jk'];
+        $notelp = $_POST['notelp'];
+        $mapel = $_POST['mapel'];
+        $tempat = $_POST['tempat'];
+        $tanggal = $_POST['tanggal'];
+        $alamat = $_POST['alamat'];
+        $path_foto = "../../asset/image/default.jpg";
+        // Check if there is a file upload
+        if(isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
+            $foto = $_FILES['foto']['name'];
+            $ukuran_foto = $_FILES['foto']['size'];
+            $tipe_foto = $_FILES['foto']['type'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $path = "../../asset/image/";
+            $uniqfilename = "guru_".$nip.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $path_foto = $path . $uniqfilename;
+            // Validation
+            if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
+                echo "<script>alert('Format gambar tidak sesuai!');</script>";
+                header("Location: input-guru.php");
+            } else if($ukuran_foto > 1048576) {
+                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
+                header("Location: input-guru.php");
+            } else {
+                move_uploaded_file($tmp_foto, $path_foto);
+            }
+        }
+
+
+        $query = "INSERT INTO guru (nama_guru, nip, jk, notelp, alamat, tempat_lahir, tanggal_lahir, mapel_id, foto) VALUES ('$nama', '$nip', '$jk', '$notelp', '$alamat', '$tempat', '$tanggal', '$mapel', '$path_foto')";
+        $result = mysqli_query($koneksi, $query);
+        if($result){
+            echo "<script>alert('Berhasil menambahkan data guru mapel!');window.location='index.php?status=added';</script>";
+            exit;
+        }else{
+            echo "<script>alert('Gagal menambahkan data guru mapel!');window.location='index.php?status=failed';</script>";
+        }
+    }
 ?>
 
 <div class="page-wrapper">
@@ -31,72 +74,84 @@
 
         <!-- Content Starts -->
         <div class="row">
-            <div class="col-sm-12">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="card flex-fill">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title">Tambah Guru</h5>
-                        </div>
-                        <div class="card-body">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tambah Guru Mapel</div>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-12 d-flex">
-                                    <div class="card flex-grow-1 shadow">
-                                        <div class="card-header">
-                                            <h5>Profile Guru Mapel</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="nama">Nama</label>
-                                                    <input type="text" name="nama" id="nama" required
-                                                        class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="nip">NIP</label>
-                                                    <input type="text" name="nip" id="nip" required class="form-control"
-                                                        maxlength="10">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="mapel">Mata Pelajaran</label>
-                                                    <select name="mapel" id="mapel" class="form-control">
-                                                        <option value="">-- Pilih Mata Pelajaran --</option>
-                                                        <?php
-                                                            $query = mysqli_query($koneksi, "SELECT * FROM mapel");
-                                                            while($row = mysqli_fetch_assoc($query)):
-                                                                echo "<option value='$row[mapel_id]'>$row[nama_mapel]</option>";
-                                                            endwhile;
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="no_telp">No Telepon</label>
-                                                    <input type="text" name="no_telp" id="no_telp" required
-                                                        class="form-control" maxlength="15">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="alamat">Alamat</label>
-                                                    <textarea name="alamat" id="alamat" cols="30" rows="3"
-                                                        class="form-control"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <button type="submit" name="submit" class="btn btn-primary"><i
-                                                        class="fa fa-plus"></i>
-                                                    Simpan</button>
-                                                <button type="reset" name="Reset" class="btn btn-secondary"><i
-                                                        class="fa fa-times"></i>
-                                                    Reset</button>
-                                            </div>
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-group text-center">
+                                        <img id="imagePreview" src="../../asset/image/default.jpg" alt="Preview"
+                                            style="max-width: 100%; max-height: 100px; margin-top: 10px;"
+                                            class="mb-2 rounded-circle">
+                                        <small class="form-text text-muted">Hanya menerima file gambar JPG,JPEG,
+                                            PNG. Maks 1MB width :
+                                            height</small>
+                                        <input type="file" name="foto" id="fotoInput" class="form-control"
+                                            onchange="previewImage()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">Nama</label>
+                                        <input required type="text" class="form-control" id="nama" name="nama">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nip">NIP</label>
+                                        <input id="nip" class="form-control" type="text" name="nip" required
+                                            maxlength="10">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jk">Jenis Kelamin</label>
+                                        <select name="jk" id="jk" class="form-control">
+                                            <option class="" value="">- Pilih </option>
+                                            <option value="L">Laki-laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="notelp">Telepon</label>
+                                        <input id="notelp" class="form-control" type="text" name="notelp"
+                                            maxlength="13">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="mapel">Mengampu mapel</label>
+                                        <select name="mapel" id="mapel" class="form-control">
+                                            <option value="">- Pilih </option>
+                                            <?php
+                                        $query = "SELECT * FROM mata_pelajaran";
+                                        $result = mysqli_query($koneksi, $query);
+                                        while($data = mysqli_fetch_assoc($result)):
+                                    ?>
+                                            <option value="<?=$data['mapel_id']?>"><?=$data['nama_mapel']?></option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tempat">Tempat Lahir</label>
+                                        <input id="tempat" class="form-control" type="text" name="tempat">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tanggal">Tanggal Lahir</label>
+                                        <input id="tanggal" class="form-control" type="date" name="tanggal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="alamat">Alamat</label>
+                                        <textarea id="alamat" class="form-control" name="alamat" cols="30"
+                                            rows="5"></textarea>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
             <!-- /Content End -->
         </div>

@@ -3,8 +3,8 @@
     if(!isset($_SESSION['role'])){
         header("Location: ../../index.php");
     }               
-    $title = "Data Kelas - Admin";
-    $msg = "Data Kelas";
+    $title = "Data Tahun Ajar - Admin";
+    $msg = "Data Tahun Ajar";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
@@ -40,25 +40,21 @@
             <div class="col-sm-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header">
-                        <div class="card-title">Input Kelas</div>
+                        <div class="card-title">Input Tahun Ajar</div>
                     </div>
                     <div class="card-body">
                         <form action="proses.php" method="POST">
                             <div class="form-group">
-                                <label for="kelas">Kelas</label>
-                                <select name="kelas" id="kelas" class="form-control" required>
-                                    <option value="">Pilih Kelas</option>
-                                    <option value="VII">VII</option>
-                                    <option value="VIII">VIII</option>
-                                    <option value="IX">IX</option>
-                                </select>
+                                <label for="tahun">Tahun Ajar</label>
+                                <input class="form-control" type="text" name="tahun" id="tahun" maxlength="9" required>
+                                <small class="form-text text-muted">Contoh : 2020/2021</small>
                             </div>
                             <div class="form-group">
-                                <label for="huruf">Huruf</label>
-                                <select name="huruf" id="huruf" class="form-control" required>
-                                    <option value="">Pilih Huruf</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
+                                <label for="semester">Semeseter</label>
+                                <select name="semester" id="semester" class="form-control" required>
+                                    <option value="">Pilih Semester</option>
+                                    <option value="ganjil">Ganjil</option>
+                                    <option value="genap">Genap</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -72,7 +68,7 @@
             <div class="col-sm-8">
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title">Data Kelas</h5>
+                        <h5 class="card-title">Data Tahun Ajar/Semester</h5>
                     </div>
                     <div class="card-body">
                         <input type="text" id="searchInput" placeholder="Search..." class="form-control col-6 mb-2">
@@ -82,43 +78,48 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Kelas</th>
+                                            <th>Tahun Ajar</th>
+                                            <th>Semester</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Kelas</th>
+                                            <th>Tahun Ajar</th>
+                                            <th>Semester</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                        $query = "SELECT * FROM kelas";
-                                        $result = mysqli_query($koneksi, $query);
                                         $no = 1;
+                                        $query = "SELECT * FROM tahun_semester";
+                                        $result = mysqli_query($koneksi, $query);
                                         while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= $row['nama_kelas'] ?></td>
+                                            <td><?= $row['nama_tahun'] ?></td>
+                                            <td><?= $row['nama_semester'] ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                    data-target="#editModal<?= $row['kelas_id'] ?>"><i
-                                                        class="fa fa-pencil"></i></button>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal<?= $row['kelas_id'] ?>"><i
-                                                        class="fa fa-trash"></i></button>
+                                                <a href="#" class="btn btn-warning" data-toggle="modal"
+                                                    data-target="#editModal<?= $row['tahun_semester_id'] ?>"><i
+                                                        class="fa fa-edit"></i></a>
+                                                <a href="#" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#deleteModal<?= $row['tahun_semester_id'] ?>"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <!-- Edit Modal -->
-                                        <div class="modal fade" id="editModal<?= $row['kelas_id'] ?>" tabindex="-1"
-                                            role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editModal<?= $row['tahun_semester_id'] ?>"
+                                            tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                                            aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Kelas</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">Edit Tahun/Semester
+                                                        </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -127,27 +128,38 @@
                                                     <div class="modal-body">
                                                         <!-- Tambahkan formulir edit di sini -->
                                                         <form action="proses.php" method="POST">
-                                                            <input type="hidden" name="kelas_id"
-                                                                value="<?= $row['kelas_id'] ?>">
                                                             <div class="form-group">
-                                                                <label for="edit_kelas">Kelas</label>
-                                                                <select name="edit_kelas" id="edit_kelas"
+                                                                <input type="text" name="id" hidden
+                                                                    value="<?=$row['tahun_semester_id']?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="tahun_edit">Tahun Ajar</label>
+                                                                <input class="form-control" type="text"
+                                                                    name="tahun_edit" id="tahun_edit" maxlength="9"
+                                                                    required value="<?=$row['nama_tahun']?>">
+                                                                <small class="form-text text-muted">Contoh :
+                                                                    2020/2021</small>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="nama_semester">Semeseter</label>
+                                                                <select name="nama_semester" id="nama_semester"
                                                                     class="form-control" required>
-                                                                    <option value="">Pilih Kelas</option>
-                                                                    <option value="VII">VII</option>
-                                                                    <option value="VII">VIII</option>
-                                                                    <option value="VII">IX</option>
+                                                                    <option value="">Pilih Semester</option>
+                                                                    <?php
+                                                                    if ($row['nama_semester'] == 'ganjil') {
+                                                                        echo '<option value="ganjil" selected>Ganjil</option>';
+                                                                        echo '<option value="genap">Genap</option>';
+                                                                    } else {
+                                                                        echo '<option value="ganjil">Ganjil</option>';
+                                                                        echo '<option value="genap" selected>Genap</option>';
+                                                                    }
+                                                                    ?>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="edit_huruf">Huruf</label>
-                                                                <input type="text" name="edit_huruf" id="edit_huruf"
-                                                                    class="form-control" required>
-                                                            </div>
-                                                            <div class="form-group text-center">
-                                                                <button type="submit" class="btn btn-primary"
-                                                                    name="update">Simpan
-                                                                    Perubahan</button>
+                                                                <input id="submit" class="btn btn-primary form-control"
+                                                                    type="submit" name="update"
+                                                                    value="Simpan Perubahan">
                                                             </div>
                                                         </form>
                                                     </div>
@@ -156,8 +168,9 @@
                                         </div>
                                         <!-- /Edit Modal -->
                                         <!-- Delete Modal -->
-                                        <div class="modal fade" id="deleteModal<?= $row['kelas_id'] ?>" tabindex="-1"
-                                            role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal<?= $row['tahun_semester_id'] ?>"
+                                            tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                                            aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -174,7 +187,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <a href="hapus.php?id=<?=$row['kelas_id']?>"
+                                                        <a href="hapus.php?id=<?=$row['tahun_semester_id']?>"
                                                             class="btn btn-danger">Delete</a>
                                                     </div>
                                                 </div>

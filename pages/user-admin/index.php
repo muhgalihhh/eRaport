@@ -4,10 +4,12 @@
         header("Location: ../../index.php");
         exit;
     }
-    $title = "Data Admin - Admin";               
+    $title = "Data Admin - Admin"; 
+    $msg = "Data Admin";              
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
+    require_once '../template/message.php';
     $query = "SELECT *
             FROM users
             INNER JOIN admin_profiles ON users.user_id = admin_profiles.user_id";
@@ -34,7 +36,12 @@
         <!-- Page Header -->
         <!-- Content Starts -->
         <div class="row">
-            <div class="col-sm-12">
+
+            <div class="col-sm-12"> <?php
+                if(isset($_GET['status'])) {
+                    echo $alert;
+                }
+            ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">Data Admin</h5>

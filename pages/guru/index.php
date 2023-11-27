@@ -5,9 +5,11 @@
         exit;
     }
     $title = "Data Guru - Admin";
+    $msg = "Data Guru";
     require_once "../../koneksi.php";
     require_once "../template/header.php";
     require_once "../template/sidebar.php";
+    require_once "../template/message.php";
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -30,10 +32,15 @@
         <!-- Content Starts -->
         <div class="row">
             <div class="col-sm-12">
+                <?php
+                    if(isset($alert)){
+                        echo $alert;
+                    }
+                ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">Data Guru</h5>
-                        <a class="btn btn-primary" href="guru/input-guru.php"><i class="fa fa-plus"></i> Tambah
+                        <a class="btn btn-primary" href="input-guru.php"><i class="fa fa-plus"></i> Tambah
                             Guru</a>
                     </div>
                     <div class="card-body">
@@ -84,11 +91,17 @@
                                             <td><?= $row['notelp'] ?></td>
                                             <td><?= $row['alamat'] ?></td>
                                             <td><?= $row['tempat_lahir'] ?>, <?= $row['tanggal_lahir'] ?></td>
-                                            <td><?= $row['jk'] ?></td>
+                                            <td><?php
+                                                if($row['jk'] == 'L'){
+                                                    echo "Laki-laki";
+                                                }else{
+                                                    echo "Perempuan";
+                                                }
+                                            ?></td>
                                             <td>
                                                 <a href="edit-Guru.php?id=<?= $row['guru_id'] ?>"
-                                                    class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                                    class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                                     data-target="#deleteModal<?= $row['guru_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
                                             </td>

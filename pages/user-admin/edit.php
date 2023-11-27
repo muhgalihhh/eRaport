@@ -58,7 +58,8 @@
                 $query_user = "UPDATE users SET username = '$username'WHERE user_id = '$user_id'";
                 $query_profile = "UPDATE admin_profiles SET nama = '$nama', foto = '$path_foto' WHERE user_id = '$user_id'";
                 if(mysqli_query($koneksi, $query_user) && mysqli_query($koneksi, $query_profile)) {
-                    echo "<script>alert('Berhasil mengubah admin!');window.location='index.php';</script>";
+                    echo "<script>alert('Berhasil mengubah admin!');</script>";
+                    header("Location: index.php?status=updated");
                 } else {
                     echo "<script>alert('Gagal mengubah admin!');</script>";
                     header("Location: edit.php?id=".$user_id);

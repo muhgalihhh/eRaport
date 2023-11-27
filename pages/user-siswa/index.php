@@ -6,9 +6,11 @@
     }
 
     $title = "Data Siswa - Admin";      
+    $msg= "Data User Siswa";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
+    require_once '../template/message.php';
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
