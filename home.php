@@ -23,8 +23,6 @@
     $dataJumlahGuru = mysqli_fetch_assoc($resultJumlahGuru);
     $dataJumlahKelas = mysqli_fetch_assoc($resultJumlahKelas);
     $dataJumlahAdmin = mysqli_fetch_assoc($resultJumlahAdmin);
-
-    
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -58,7 +56,7 @@
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                           <i class="fa fa-user-tie"></i>
+                            <i class="fa fa-user-tie"></i>
                         </span>
                         <div class="dash-widget-info">
                             <h3><?=$dataJumlahGuru['jumlah_guru']?></h3>

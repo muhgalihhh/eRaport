@@ -11,6 +11,43 @@
     $query = "SELECT * FROM sekolah";
     $result = mysqli_query($koneksi, $query); 
     $data = mysqli_fetch_assoc($result);
+    if(isset($_POST['submit'])){
+        $id = $_POST['id'];
+        $nama = $_POST['nama'];
+        $npsn = $_POST['npsn'];
+        $jenjang = $_POST['jenjang'];
+        $status = $_POST['status'];
+        $akreditas = $_POST['akreditas'];
+        $kepala_sekolah = $_POST['kepala_sekolah'];
+        $telpon = $_POST['telpon'];
+        $email = $_POST['email'];
+        $website = $_POST['website'];
+        $alamat = $_POST['alamat'];
+        $foto = $data['gambar'];
+        // Check if there is a file upload
+        if(isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
+            $foto = $_FILES['foto']['name'];
+            $ukuran_foto = $_FILES['foto']['size'];
+            $tipe_foto = $_FILES['foto']['type'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $path = "./asset/image/";
+            $uniqfilename = "sekolah_".$npsn.".".pathinfo($foto, PATHINFO_EXTENSION);
+            $foto = $path . $uniqfilename;
+            // Validation
+            if(!in_array(pathinfo($foto, PATHINFO_EXTENSION), $allowed_extensions)) {
+                echo "<script>alert('Format gambar tidak sesuai!');</script>";
+                header("Location: edit-home.php");
+            } else if($ukuran_foto > 1048576) {
+                echo "<script>alert('Ukuran gambar terlalu besar!');</script>";
+                header("Location: edit-home.php");
+            } else {
+                unlink($data['gambar']);
+                move_uploaded_file($tmp_foto, $foto);
+            }
+        }
+    } 
+        
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -22,11 +59,10 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Data Admin</h3>
+                    <h3 class="page-title">Data Sekolah</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item">Data admin</li>
-                        <li class="breadcrumb-item active">Tambah admin</li>
+                        <li class="breadcrumb-item active">Data Sekolah</li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +75,7 @@
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card flex-fill">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title">Tambah Admin</h5>
+                            <h5 class="card-title">Edit Profile Sekolah</h5>
                             <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
                                 Simpan</button>
                         </div>
@@ -48,13 +84,13 @@
                                 <div class="col-md-6 d-flex">
                                     <div class="card flex-grow-1 shadow">
                                         <div class="card-header">
-                                            <h5>Profile Admin</h5>
+                                            <h5>Profile Sekolah</h5>
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group text-center">
-                                                <img id="imagePreview" src="<?=$row['foto']?>" alt="Preview"
-                                                    style="max-width: 100%; max-height: 100px; margin-top: 10px;"
-                                                    class="mb-2 rounded-circle">
+                                                <input type="hidden" name="id" value="<?=$data['sekolah_id']?>">
+                                                <img id="imagePreview" src="<?=$data['gambar']?>" alt="Preview"
+                                                    class="mb-2" width="500">
                                                 <small class="form-text text-muted">Hanya menerima file gambar JPG,JPEG,
                                                     PNG. Maks 1MB width :
                                                     height</small>
@@ -62,35 +98,60 @@
                                                     onchange="previewImage()">
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama">Nama</label>
+                                                <label for="nama">Nama Sekolah</label>
                                                 <input type="text" name="nama" id="nama" required class="form-control"
-                                                    value="<?=$row['nama']?>">
+                                                    value="<?=$data['nama_sekolah']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="npsn">NPSN</label>
+                                                <input type="text" name="npsn" id="npsn" required class="form-control"
+                                                    value="<?=$data['npsn']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenjang">Jenjang</label>
+                                                <input type="text" name="jenjang" id="jenjang" required
+                                                    class="form-control" value="<?=$data['jenjang']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <input type="text" name="status" id="status" required
+                                                    class="form-control" value="<?=$data['status']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="akreditas">Akreditasi</label>
+                                                <input type="text" name="akreditas" id="akreditas" required
+                                                    class="form-control" value="<?=$data['akreditasi']?>">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex">
                                     <div class="card flex-grow-1 shadow">
-                                        <div class="card-header">
-                                            <h5>Akun Admin</h5>
-                                        </div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="username">Username</label>
-                                                <input type="text" name="username" id="username" pattern="[A-Za-z0-9]+"
-                                                    required class="form-control" value="<?=$row['username']?>">
-                                                <small id="validationMessage" class="form-text text-muted">Hanya
-                                                    diperbolehkan huruf dan angka, tanpa spasi dan simbol.</small>
+                                                <label for="kepala_sekolah">Kepala Sekolah</label>
+                                                <input type="text" name="kepala_sekolah" id="kepala_sekolah" required
+                                                    class="form-control" value="<?=$data['kepala_sekolah']?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" name="password" id="password" required
-                                                    class="form-control">
+                                                <label for="telpon">Telepon Sekolah</label>
+                                                <input type="text" name="telpon" id="telpon" required
+                                                    class="form-control" value="<?=$data['telepon_sekolah']?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Confirm Password</label>
-                                                <input type="password" name="repeatpassword" id="repeatpassword"
-                                                    required class="form-control">
+                                                <label for="email">Email Sekolah</label>
+                                                <input type="email" name="email" id="email" required
+                                                    class="form-control" value="<?=$data['email_sekolah']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="website">Website Sekolah</label>
+                                                <input type="text" name="website" id="website" required
+                                                    class="form-control" value="<?=$data['website_sekolah']?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat Sekolah</label>
+                                                <textarea name="alamat" id="alamat" required class="form-control"
+                                                    rows="5"><?=$data['alamat_sekolah']?></textarea>
                                             </div>
                                         </div>
                                     </div>

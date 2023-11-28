@@ -15,6 +15,23 @@
 
  <!-- Custom JS -->
  <script src="../asset/admin-template/assets/js/app.js"></script>
+ <script>
+function previewImage() {
+    var preview = document.getElementById('imagePreview');
+    var fileInput = document.getElementById('fotoInput');
+    var file = fileInput.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+        preview.src = reader.result;
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}
+ </script>
  </body>
 
  </html>

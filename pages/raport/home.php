@@ -14,7 +14,7 @@ if($_SESSION['role'] == 'admin') {
     $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'VII__';";
 } else if($_SESSION['role'] == 'siswa') {
     $user = $_SESSION['user_id'];
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '$user';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '$user' AND kelas.nama_kelas LIKE 'VII__';";
 } else if($_SESSION['role'] == 'walikelas') {
     $kelas = $_SESSION['kelas'];
     $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '$kelas';";
