@@ -6,9 +6,11 @@
     }
 
     $title = "Data Wali kelas - Admin";      
+    $msg = "Data Wali Kelas";
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
+    require_once '../template/message.php';
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">

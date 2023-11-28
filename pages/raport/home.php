@@ -9,16 +9,15 @@ $msg = "Data Raport";
 require_once '../../koneksi.php';
 require_once '../template/header.php';
 require_once '../template/sidebar.php';
-
 require_once '../template/message.php';
 if($_SESSION['role'] == 'admin') {
     $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'VII__';";
 } else if($_SESSION['role'] == 'siswa') {
     $user = $_SESSION['user_id'];
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '.$user.';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '$user';";
 } else if($_SESSION['role'] == 'walikelas') {
     $kelas = $_SESSION['kelas'];
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '.$kelas.';";
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '$kelas';";
 }
 ?>
 <!-- Page Wrapper -->
@@ -91,12 +90,18 @@ if($_SESSION['role'] == 'admin') {
                                             <td><?= $row['nama_kelas'] ?></td>
                                             <td class="text-center">
                                                 <?php if($_SESSION['role'] == 'siswa') { ?>
-                                                <a href="raport.php" class="btn btn-success btn-sm"><i
-                                                        class="fa fa-print"></i></a>
+                                                <a href="raport-ganjil.php?id=<?=$row['user_id']?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i>
+                                                    ganjil</a>
+                                                <a href="raport-genap.php?id=<?= $row['user_id'] ?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i> genap</a>
                                                 <?php
                                                 }else if($_SESSION['role'] == 'walikelas' || $_SESSION['role'] == 'admin') { ?>
-                                                <a href="raport.php" class="btn btn-success btn-sm"><i
-                                                        class="fa fa-print"></i></a>
+                                                <a href="raport-ganjil.php?id=<?=$row['user_id']?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i>
+                                                    ganjil</a>
+                                                <a href="raport-genap.php?id=<?= $row['user_id'] ?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i> genap</a>
                                                 <a href="index.php?id=<?=$row['user_id']?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

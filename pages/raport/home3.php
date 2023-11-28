@@ -9,9 +9,12 @@ require_once '../template/message.php';
 if($_SESSION['role'] == 'admin') {
     $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'siswa') {
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '".$_SESSION['user_id']."' AND kelas.nama_kelas LIKE 'IX__';";
+    $user = $_SESSION['user_id'];
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE siswa_profiles.user_id = '$user' AND kelas.nama_kelas LIKE 'IX__';";
 } else if($_SESSION['role'] == 'walikelas') {
-    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '".$_SESSION['kelas']."';";
+    $kelas = $_SESSION['kelas'];
+    $query = "SELECT * FROM siswa_profiles JOIN kelas ON siswa_profiles.kelas_id = kelas.kelas_id WHERE kelas.nama_kelas = '$kelas' AND kelas.nama_kelas LIKE 'IX__';";
+ 
 }
 ?>
 <!-- Page Wrapper -->
@@ -83,13 +86,25 @@ if($_SESSION['role'] == 'admin') {
                                             <td><?= $row['nama'] ?></td>
                                             <td><?= $row['nama_kelas'] ?></td>
                                             <td class="text-center">
-                                                <a href="raport.php" class="btn btn-success btn-sm"><i
-                                                        class="fa fa-print"></i></a>
+                                                <?php if($_SESSION['role'] == 'siswa') { ?>
+                                                <a href="raport-ganjil.php?id=<?=$row['user_id']?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i>
+                                                    ganjil</a>
+                                                <a href="raport-genap.php?id=<?= $row['user_id'] ?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i> genap</a>
+                                                <?php
+                                                }else if($_SESSION['role'] == 'walikelas' || $_SESSION['role'] == 'admin') { ?>
+                                                <a href="raport-ganjil.php?id=<?=$row['user_id']?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i>
+                                                    ganjil</a>
+                                                <a href="raport-genap.php?id=<?= $row['user_id'] ?>"
+                                                    class="btn btn-success btn-sm"><i class="fa fa-print"></i> genap</a>
                                                 <a href="index.php?id=<?=$row['user_id']?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#deleteModal<?= $row['user_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
+                                                <?php } ?>
                                             </td>
                                             <!-- Delete Modal -->
                                             <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"

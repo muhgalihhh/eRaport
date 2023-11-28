@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nip">NIP</label>
-                                                <input type="text" name="nis" id="nip" maxlength="10" required
+                                                <input type="text" name="nip" id="nip" maxlength="10" required
                                                     class="form-control">
                                             </div>
                                             <div class="form-group">

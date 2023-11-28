@@ -101,7 +101,7 @@
                             </ul>
                         </li>
                         <li class="menu-title">
-                            <span>Pengguna</span>
+                            <span>User</span>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span

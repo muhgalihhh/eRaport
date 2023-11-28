@@ -46,7 +46,8 @@
                     <h3 class="page-title">Data Raport</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Raport Kelas 7</li>
+                        <li class="breadcrumb-item">Data Raport Kelas 7</li>
+                        <li class="breadcrumb-item active">Data Tiap Ujian</li>
                     </ul>
                 </div>
             </div>

@@ -12,20 +12,20 @@ if (isset($_POST['login'])) {
     if($role == 'admin'){
     $queryadmin = "SELECT *
               FROM users
-              INNER JOIN roles ON users.role = roles.role_name
-              LEFT JOIN admin_profiles ON users.user_id = admin_profiles.user_id
+              JOIN roles ON users.role = roles.role_name
+              JOIN admin_profiles ON users.user_id = admin_profiles.user_id
               WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $queryadmin);  
             }else if($role == 'walikelas'){
                 $querywalikelas = "SELECT * FROM users 
-              INNER JOIN roles on users.role = roles.role_name 
-              LEFT JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
+               JOIN roles on users.role = roles.role_name 
+               JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
               WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $querywalikelas);
             }else if($role == 'siswa'){
                 $querysiswa = "SELECT * FROM users 
-              INNER JOIN roles on users.role = roles.role_name 
-              LEFT JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
+               JOIN roles on users.role = roles.role_name 
+               JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
               WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $querysiswa);
             }else if($role == ""){
@@ -57,6 +57,10 @@ if (isset($_POST['login'])) {
                     $_SESSION['foto'] = $user['foto'];
                     $_SESSION['nip'] = $user['nip'];
                     $_SESSION['kelas_id'] = $user['kelas_id'];
+                    $querykelas = "SELECT * FROM kelas WHERE kelas_id = '$user[kelas_id]' ";
+                    $result = mysqli_query($koneksi, $querykelas);
+                    $kelas = mysqli_fetch_assoc($result);
+                    $_SESSION['kelas'] = $kelas['nama_kelas'];
                     $_SESSION['notelp'] = $user['notelp'];
                     $_SESSION['jk'] = $user['jk'];
                     $_SESSION['alamat'] = $user['alamat'];
