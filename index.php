@@ -195,7 +195,7 @@ if(isset($_GET['status'])){
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            filter: grayscale(70%);"></div>
+            filter: grayscale(70%);"> </div>
         </div>
     </div>
     <!-- /Main Wrapper -->

@@ -5,6 +5,9 @@ require_once "../../koneksi.php";
 $semesterType = "genap";
 if(isset($_GET['id'])){
     $StudenID = $_GET['id'];
+    $kelasSiswa = "SELECT DISTINCT nama_kelas FROM kelas JOIN siswa_profiles ON kelas.kelas_id = siswa_profiles.kelas_id WHERE siswa_profiles.user_id = '$StudenID';";
+    $resultKelas = mysqli_query($koneksi, $kelasSiswa);
+    $rowKelas = mysqli_fetch_assoc($resultKelas);
     $query = "SELECT DISTINCT
                 siswa_profiles.foto,
                 siswa_profiles.NIS,
@@ -16,7 +19,7 @@ if(isset($_GET['id'])){
                 nilai_ujian.nilai
             FROM 
                 siswa_profiles
-            JOIN 
+            JOIN
                 nilai_ujian ON siswa_profiles.user_id = nilai_ujian.user_id
             JOIN 
                 ujian ON nilai_ujian.ujian_id = ujian.ujian_id
@@ -97,7 +100,7 @@ $row = mysqli_fetch_assoc($result);
             <tr>
                 <td class="left">Kelas</td>
                 <td class="colon">:</td>
-                <td class="left"><?= $row['nama_kelas'] ?></td>
+                <td class="left"><?= $rowKelas['nama_kelas'] ?></td>
                 <td></td>
             </tr>
             <tr>

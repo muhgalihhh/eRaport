@@ -56,7 +56,7 @@
                 }
             }
         }
-    }
+    }   
     require_once '../template/message.php';
 ?>
 <!-- Page Wrapper -->
