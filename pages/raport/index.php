@@ -16,6 +16,7 @@
                 siswa_profiles.NIS,
                 siswa_profiles.nama AS nama_siswa,
                 kelas.nama_kelas,
+                ujian.ujian_id,
                 ujian.nama_ujian,
                 tahun_semester.nama_tahun,
                 tahun_semester.nama_semester
@@ -33,6 +34,7 @@
                 kelas.nama_kelas LIKE 'VII__' and siswa_profiles.user_id = '".$_GET['id']."';";
 
     $result = mysqli_query($koneksi, $query);
+
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -97,6 +99,8 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+
+
                                         <?php
                                         $no = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -111,12 +115,66 @@
                                             <td><?= $row['nama_ujian'] ?></td>
                                             <td><?=$row['nama_tahun']?>, <?= $row['nama_semester'] ?></td>
                                             <td>
-                                                <a href="edit.php?id=<?= $row['user_id'] ?>"
-                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <button type="button" data-toggle="modal"
+                                                    data-target="#editModal<?= $row['user_id'] ?>"
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#deleteModal<?= $row['user_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
                                             </td>
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal<?= $row['user_id'] ?>" tabindex="-1"
+                                                role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Mata
+                                                                Pelajaran
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Tambahkan formulir edit di sini -->
+                                                            <form action="proses.php" method="POST">
+                                                                <input type="hidden" name="user_id"
+                                                                    value="<?= $row['user_id'] ?>">
+                                                                <input type="hidden" name="ujian_id"
+                                                                    value="<?= $row['ujian_id'] ?>">
+                                                                <div class="form-group">
+                                                                    <label for="mapel text-bold">Nilai Mata
+                                                                        Pelajaran</label>
+                                                                    <hr class="mt-0">
+                                                                    <?php
+                                                                                // Query untuk mengambil data mata pelajaran dari database
+                                                                        $sqlMapel = "SELECT * FROM mata_pelajaran";
+                                                                        $queryMapel = mysqli_query($koneksi, $sqlMapel);
+                                                                        
+                                                                        while ($dataMapel = mysqli_fetch_assoc($queryMapel)) {
+                                                                            $mapel_id = $dataMapel['mapel_id'];
+                                                                         
+                                                                            echo '<label for="nilai_' . $mapel_id . '">' . $dataMapel['nama_mapel'] . '</label>';
+                                                                            echo '<input type="range" class="form-control-range" id="slider_' . $mapel_id . '" name="nilai_' . $mapel_id . '" min="0" max="100">';
+                                                                            echo '<p id="sliderValue_' . $mapel_id . '">Nilai: 0</p>';
+                                                                            echo '<input type="hidden" name="mapel_id[]" value="' . $mapel_id . '">';
+                                                                            
+                                                                        }
+                                                                    ?>
+                                                                </div>
+                                                                <div class="form-group text-center">
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        name="update">Simpan
+                                                                        Perubahan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Edit modal akhir -->
                                             <!-- Delete Modal -->
                                             <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
                                                 role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

@@ -46,6 +46,14 @@
                 move_uploaded_file($tmp_foto, $foto);
             }
         }
+        $query = "UPDATE sekolah SET nama_sekolah = '$nama', npsn = '$npsn', jenjang = '$jenjang', status = '$status', akreditasi = '$akreditas', kepala_sekolah = '$kepala_sekolah', telepon_sekolah = '$telpon', email_sekolah = '$email', website_sekolah = '$website', alamat_sekolah = '$alamat', gambar = '$foto' WHERE sekolah_id = '$id'";
+        $result = mysqli_query($koneksi, $query);
+        if($result){
+            echo "<script>alert('Berhasil mengubah data sekolah!');window.location='home.php?status=updated';</script>";
+            exit;
+        }else{
+            echo "<script>alert('Gagal mengubah data sekolah!');window.location='home.php?status=failed';</script>";
+        }
     } 
         
 ?>

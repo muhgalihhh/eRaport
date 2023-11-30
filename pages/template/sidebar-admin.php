@@ -43,8 +43,8 @@
                         <span>Admin</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="../../my-profile.php">My Profile</a>
-                        <a class="dropdown-item" href="../../logout.php">Logout</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -55,7 +55,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="../../my-profile.php">My Profile</a>
+                    <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </div>
@@ -75,17 +75,17 @@
                             <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../../<?=$_SESSION['mainurl']?>">Admin Dashboard</a></li>
+                                <li><a href="<?=$mainUrl?><?=$_SESSION['mainurl']?>">Admin Dashboard</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../guru/index.php">Guru</a></li>
-                                <li><a href="../kelas/index.php">Kelas</a></li>
-                                <li><a href="../mapel/index.php">Mata Pelajaran</a></li>
-                                <li><a href="../tahun-ajar/index.php">Tahun ajar/Semester</a></li>
+                                <li><a href="<?=$mainUrl?>pages/guru/index.php">Guru</a></li>
+                                <li><a href="<?=$mainUrl?>pages/kelas/index.php">Kelas</a></li>
+                                <li><a href="<?=$mainUrl?>pages/mapel/index.php">Mata Pelajaran</a></li>
+                                <li><a href="<?=$mainUrl?>pages/tahun-ajar/index.php">Tahun ajar/Semester</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">
@@ -95,9 +95,9 @@
                             <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../raport/home.php">Kelas 7</a></li>
-                                <li><a href="../raport/home2.php">Kelas 8</a></li>
-                                <li><a href="../raport/home3.php">Kelas 9</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">
@@ -107,9 +107,9 @@
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="../../pages/user-admin/">Input Admin</a></li>
-                                <li><a href="../../pages/user-siswa/">Input Siswa</a></li>
-                                <li><a href="../../pages/user-walikelas/">Input Walikelas</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-admin/">Input Admin</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-siswa/">Input Siswa</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-walikelas/">Input Walikelas</a></li>
                             </ul>
                         </li>
                     </ul>

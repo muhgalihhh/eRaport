@@ -8,7 +8,8 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="home.php" class="logo">
-                    <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow-lg">
+                    <img src="pages/user-siswa/<?=$_SESSION['foto']?>" width="40" height="40" alt=""
+                        class="rounded-circle shadow-lg">
                 </a>
             </div>
             <!-- /Logo -->
@@ -37,14 +38,14 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="<?=$_SESSION['foto']?>" alt="">
+                        <span class="user-img"><img src="pages/user-siswa/<?=$_SESSION['foto']?>" alt="">
                             <span class="status online"></span>
                         </span>
                         <span><?=$_SESSION['role'];?></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/my-profile.php">My Profile</a>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -55,8 +56,8 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/my-profile.php">My Profile</a>
-                    <a class="dropdown-item" href="logout.php">Logout</a>
+                    <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
+                    <a class="dropdown-item" href="<?=$mainUrl?>logout.php">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->
@@ -75,9 +76,9 @@
                             <a href="#"><i class="la la-download"></i> <span> Unduh Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="/pages/raport/home.php">Kelas 7</a></li>
-                                <li><a href="/pages/raport/home2.php">Kelas 8</a></li>
-                                <li><a href="/pages/raport/home3.php">Kelas 9</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
 

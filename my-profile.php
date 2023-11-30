@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item text-center">
-                                <img src="<?=$_SESSION['foto']?>" alt="<?=$_SESSION['username']?>"
+                                <img src="pages/user-admin/<?=$_SESSION['foto']?>" alt="<?=$_SESSION['username']?>"
                                     class="rounded-circle" width="200">
                             </li>
                             <li class="list-group-item">

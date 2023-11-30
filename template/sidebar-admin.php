@@ -8,7 +8,8 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="home.php" class="logo">
-                    <img src="<?=$_SESSION['foto']?>" width="40" height="40" alt="" class="rounded-circle shadow-lg">
+                    <img src="pages/user-admin/<?=$_SESSION['foto']?>" width="40" height="40" alt=""
+                        class="rounded-circle shadow-lg">
                 </a>
             </div>
             <!-- /Logo -->
@@ -37,14 +38,14 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="<?=$_SESSION['foto']?>" alt="">
+                        <span class="user-img"><img src="pages/user-admin/<?=$_SESSION['foto']?>" alt="">
                             <span class="status online"></span>
                         </span>
                         <span><?=$_SESSION['role'];?></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/my-profile.php">My Profile</a>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
+                        <a class="dropdown-item" href="<?=$mainUrl?>logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -55,8 +56,8 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/my-profile.php">My Profile</a>
-                    <a class="dropdown-item" href="logout.php">Logout</a>
+                    <a class="dropdown-item" href="<?=$mainUrl?>my-profile.php">My Profile</a>
+                    <a class="dropdown-item" href="<?=$mainUrl?>logout.php">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->
@@ -82,10 +83,10 @@
                             <a href="#"><i class="la la-edit"></i> <span> Input Data Master</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/guru/index.php">Guru</a></li>
-                                <li><a href="pages/kelas/index.php">Kelas</a></li>
-                                <li><a href="pages/mapel/index.php">Mata Pelajaran</a></li>
-                                <li><a href="pages/tahun-ajar/index.php">Tahun ajar/Semester</a></li>
+                                <li><a href="<?=$mainUrl?>pages/guru/index.php">Guru</a></li>
+                                <li><a href="<?=$mainUrl?>pages/kelas/index.php">Kelas</a></li>
+                                <li><a href="<?=$mainUrl?>pages/mapel/index.php">Mata Pelajaran</a></li>
+                                <li><a href="<?=$mainUrl?>pages/tahun-ajar/index.php">Tahun ajar/Semester</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">
@@ -95,9 +96,9 @@
                             <a href="#"><i class="la la-book"></i> <span> Nilai Raport</span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="/pages/raport/home.php">Kelas 7</a></li>
-                                <li><a href="/pages/raport/home2.php">Kelas 8</a></li>
-                                <li><a href="/pages/raport/home3.php">Kelas 9</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home.php">Kelas 7</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home2.php">Kelas 8</a></li>
+                                <li><a href="<?=$mainUrl?>pages/raport/home3.php">Kelas 9</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">
@@ -107,9 +108,9 @@
                             <a href="#"><i class="la la-user"></i> <span> User </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="pages/user-admin/">Input Admin</a></li>
-                                <li><a href="pages/user-siswa/">Input Siswa</a></li>
-                                <li><a href="pages/user-walikelas/">Input Walikelas</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-admin/">Input Admin</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-siswa/">Input Siswa</a></li>
+                                <li><a href="<?=$mainUrl?>pages/user-walikelas/">Input Walikelas</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -48,7 +48,7 @@
         $data = mysqli_fetch_assoc($result);
         ?>
         <div class="row">
-            <div class="col-12 col-md-8 col-lg-9 d-flex">
+            <div class="col-lg-8 d-flex">
                 <div class="card flex-fill">
                     <img alt="" src="<?=$data['gambar']?>" class="card-img-top">
                     <div class="card-header d-flex justify-content-between">
@@ -69,14 +69,21 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-12 col-md-4 col-lg-3 d-flex">
+            <div class="col-lg-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header">
                         <h5 class="card-title text-center mb-0">Keterangan User</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text"></p>
-                        <a class="btn btn-primary" href="#">Lebih Detail</a>
+                        <ul class="list-group-flush text-center mt-auto">
+                            <li class="list-group-item"><img src="pages/user-admin/<?=$_SESSION['foto']?>" alt=""
+                                    class="rounded-circle shadow-sm" width="100%"></li>
+                            <li class="list-group-item"><?=$_SESSION['nama']?></li>
+                            <li class="list-group-item"><?=$_SESSION['role']?></li>
+                            <li class="list-group-item"><a class="btn btn-primary"
+                                    href="<?=$mainUrl?>my-profile.php">Lebih
+                                    Detail</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

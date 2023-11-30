@@ -149,7 +149,7 @@ $row = mysqli_fetch_assoc($result);
                             kelas.nama_kelas LIKE 'VII__' AND tahun_semester.nama_semester LIKE '%$semesterType%' AND nilai_ujian.user_id = '$StudenID';";
             $resultMapel = mysqli_query($koneksi, $queryMapel);
             while ($rowMapel = mysqli_fetch_assoc($resultMapel)) {
-                $queryNilai = "SELECT DISTINCT
+                $queryNilai = "SELECT
                                     nilai_ujian.nilai
                                 FROM 
                                     siswa_profiles
@@ -174,7 +174,7 @@ $row = mysqli_fetch_assoc($result);
                         $uts = $rowNilai['nilai'];
                     } else {
                         $uas = $rowNilai['nilai'];
-                    }
+                    } 
                     $nilai = ($uts + $uas) / 2;
                 }
             ?>
@@ -215,8 +215,6 @@ $row = mysqli_fetch_assoc($result);
             <input type="button" value="Export PDF" onclick="window.print()">
         </p>
     </div>
-
-
 </body>
 
 </html>
