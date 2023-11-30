@@ -1,0 +1,24 @@
+Website ini dibuat untuk menyelesaikan projek tugas matakuliah dari Pemrograman Web 1
+Anggota Kelompok :
+- Muhamad Galih (H1D022052)
+- Gery Prayoga (H1D022076)
+- Panji Bagaskara (H1D022106)
+
+================== Projek Ini Berjudul ====================
+
+"Perancangan Sistem Informasi E-Raport pada SMP N 01 Purbalingga Berbasis Website menggunakan PHP Native dan Framework Bootstrap"
+
+Tools yang digunakan dalam membuat web ini :
+- HTML (MarkUp)
+- CSS (Style)
+- JS
+- Framework Bootstrap
+
+PERHATIKAN INI JIKA ERROR !!!!!
+
+///// Perlu diingat jika ingin menggunakan web ini coba dicek terlebih dahulu bagian $mainUrl pada konfigurasi di koneksi.php /////
+
+
+~ Kelompok PemWeb || Teknik Unsoed
+~ link github : https://github.com/muhgalihhh/eRaport.git
+~ C 2023

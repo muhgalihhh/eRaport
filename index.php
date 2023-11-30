@@ -4,7 +4,9 @@ $title = "Halaman Login - SMP N XXXX";
 require_once "koneksi.php";
 require_once "template/header.php";
 
-
+$query = "SELECT nama_sekolah FROM sekolah";
+$result = mysqli_query($koneksi, $query);
+$sekolah = mysqli_fetch_assoc($result);
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -143,7 +145,7 @@ if(isset($_GET['status'])){
             <div class="container ">
                 <!-- Account Logo -->
                 <div class="account-logo">
-                    <h2 class="text-center mb-4 mt-4">SMP N 01 Konohagakure</h2>
+                    <h2 class="text-center mb-4 mt-4"><?=$sekolah['nama_sekolah']?></h2>
                     <a href="index.php"><img src="./asset/image/logo.png" alt="Tut Wuri Handayani"></a>
                 </div>
                 <!-- /Account Logo -->
