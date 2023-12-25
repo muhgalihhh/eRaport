@@ -50,15 +50,13 @@
 
         $query = "UPDATE guru SET nama_guru = '$nama', nip = '$nip', jk = '$jk', notelp = '$notelp', mapel_id = '$mapel', tempat_lahir = '$tempat', tanggal_lahir = '$tanggal', alamat = '$alamat', foto = '$path_foto' WHERE guru_id = '$id'";
         $result = mysqli_query($koneksi, $query);
-        if($result){
+        if($result){ 
             echo "<script>alert('Berhasil Mengubah data guru mapel!');window.location='index.php?status=updated';</script>";
             exit;
         }else{
             echo "<script>alert('Gagal Mengubah data guru mapel!');window.location='index.php?status=failed';</script>";
         }
     }
-
-    
 ?>
 
 <div class="page-wrapper">

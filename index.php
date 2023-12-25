@@ -13,22 +13,22 @@ if (isset($_POST['login'])) {
     $role = $_POST['role'];
     if($role == 'admin'){
     $queryadmin = "SELECT *
-              FROM users
-              JOIN roles ON users.role = roles.role_name
-              JOIN admin_profiles ON users.user_id = admin_profiles.user_id
-              WHERE users.username = '$username' AND roles.role_name = '$role'";
+                FROM users
+                JOIN roles ON users.role = roles.role_name
+                JOIN admin_profiles ON users.user_id = admin_profiles.user_id
+                WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $queryadmin);  
             }else if($role == 'walikelas'){
                 $querywalikelas = "SELECT * FROM users 
-               JOIN roles on users.role = roles.role_name 
-               JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
-              WHERE users.username = '$username' AND roles.role_name = '$role'";
+                JOIN roles on users.role = roles.role_name 
+                JOIN walikelas_profiles ON users.user_id = walikelas_profiles.user_id 
+                WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $querywalikelas);
             }else if($role == 'siswa'){
                 $querysiswa = "SELECT * FROM users 
-               JOIN roles on users.role = roles.role_name 
-               JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
-              WHERE users.username = '$username' AND roles.role_name = '$role'";
+                JOIN roles on users.role = roles.role_name 
+                JOIN siswa_profiles ON users.user_id = siswa_profiles.user_id 
+                WHERE users.username = '$username' AND roles.role_name = '$role'";
             $result = mysqli_query($koneksi, $querysiswa);
             }else if($role == ""){
                 header("Location: index.php?status=failed3");
@@ -37,7 +37,6 @@ if (isset($_POST['login'])) {
 
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
-
         // Verify the password
         if (password_verify($password, $user['password'])) {
             // Password is correct
