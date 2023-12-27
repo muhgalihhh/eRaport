@@ -1,8 +1,10 @@
 Website ini dibuat untuk menyelesaikan projek tugas matakuliah dari Pemrograman Web 1
 Anggota Kelompok :
-- Muhamad Galih (H1D022052)
-- Gery Prayoga (H1D022076)
-- Panji Bagaskara (H1D022106)
+Muhamad Gaih			(H1D022052)
+Gery Prayoga		 	(H1D022076)
+Abdul Aziz Fahmi ‘Alaudin	(H1D022040)
+Panji Bagaskara			(H1D022106)
+Sufyan Abdur Rofiq		(H1D022004)
 
 ================== Projek Ini Berjudul ====================
 
@@ -16,9 +18,11 @@ Tools yang digunakan dalam membuat web ini :
 
 PERHATIKAN INI JIKA ERROR !!!!!
 
-///// Perlu diingat jika ingin menggunakan web ini coba dicek terlebih dahulu bagian $mainUrl pada konfigurasi di koneksi.php /////
+///// Perlu diingat jika ingin menggunakan web 
+ini coba dicek terlebih dahulu bagian $mainUrl 
+pada konfigurasi di koneksi.php /////
 
-
-~ Kelompok PemWeb || Teknik Unsoed
+Akun Admin
+~ Kelompok ADS|| Teknik Unsoed
 ~ link github : https://github.com/muhgalihhh/eRaport.git
 ~ C 2023

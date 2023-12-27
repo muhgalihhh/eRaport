@@ -20,10 +20,10 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Data Kelas</h3>
+                    <h3 class="page-title">Data Tahun Ajar</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Kelas</li>
+                        <li class="breadcrumb-item active">Data Tahun ajar</li>
                     </ul>
                 </div>
             </div>
