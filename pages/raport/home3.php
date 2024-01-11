@@ -99,7 +99,7 @@ if($_SESSION['role'] == 'admin') {
                                                     ganjil</a>
                                                 <a href="raport-genap.php?id=<?= $row['user_id'] ?>"
                                                     class="btn btn-success btn-sm"><i class="fa fa-print"></i> genap</a>
-                                                <a href="index.php?id=<?=$row['user_id']?>"
+                                                <a href="index3.php?id=<?=$row['user_id']?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#deleteModal<?= $row['user_id'] ?>"><i

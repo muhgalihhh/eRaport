@@ -19,7 +19,8 @@
                 ujian.ujian_id,
                 ujian.nama_ujian,
                 tahun_semester.nama_tahun,
-                tahun_semester.nama_semester
+                tahun_semester.nama_semester,
+                tahun_semester.tahun_semester_id
             FROM 
                 siswa_profiles
             JOIN 
@@ -32,9 +33,7 @@
                 tahun_semester ON ujian.tahun_semester_id = tahun_semester.tahun_semester_id
             WHERE
                 kelas.nama_kelas LIKE 'VII__' and siswa_profiles.user_id = '".$_GET['id']."';";
-
-    $result = mysqli_query($koneksi, $query);
-
+        $result = mysqli_query($koneksi, $query); // distinct untuk menghilangkan data yang sama
 ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
@@ -48,8 +47,9 @@
                     <h3 class="page-title">Data Raport</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item">Data Raport Kelas 7</li>
-                        <li class="breadcrumb-item active">Data Tiap Ujian</li>
+                        <li class="breadcrumb-item"><a href="home.php">Data
+                                Raport Kelas 7</a></li>
+                        <li class=" breadcrumb-item active">Data Tiap Ujian</li>
                     </ul>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                                             <th>Foto</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
-                                            <th>Kelas</th>
+                                            <th>Ruang Ujian</th>
                                             <th>nama_ujian</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Aksi</th>
@@ -92,7 +92,7 @@
                                             <th>Foto</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
-                                            <th>Kelas</th>
+                                            <th>Ruang Ujian</th>
                                             <th>nama_ujian</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Aksi</th>
@@ -119,7 +119,7 @@
                                                     data-target="#editModal<?= $row['user_id'] ?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal<?= $row['user_id'] ?>"><i
+                                                    data-target="#deleteModal<?= $row['ujian_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
                                             </td>
                                             <!-- Edit Modal -->
@@ -176,8 +176,9 @@
 
                                             <!-- Edit modal akhir -->
                                             <!-- Delete Modal -->
-                                            <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
-                                                role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="deleteModal<?= $row['ujian_id'] ?>"
+                                                tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -194,7 +195,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Cancel</button>
-                                                            <a href="hapus.php?id=<?=$row['user_id']?>"
+                                                            <a href="hapus.php?id=<?=$row['user_id']?>&ujian_id_delete=<?=$row['ujian_id']?>"
                                                                 class="btn btn-danger">Delete</a>
                                                         </div>
                                                     </div>

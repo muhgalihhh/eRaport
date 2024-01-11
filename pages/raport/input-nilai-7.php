@@ -8,7 +8,7 @@
     require_once '../../koneksi.php';
     require_once '../template/header.php';
     require_once '../template/sidebar.php';
-
+    $id_user = $_GET['id'];
     if(isset($_POST['simpan'])){
         $tahun_ajaran = $_POST['tahun_ajaran'];
         $semester = $_POST['semester'];
@@ -39,7 +39,7 @@
                 }
                 echo "<script>
                     alert('Data berhasil ditambahkan');
-                    window.location.href='index.php?status=added';
+                    window.location.href='index.php?id=$id_user&status=added';
                     </script>";
                 exit;
             }else{
@@ -80,6 +80,7 @@
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card">
                         <div class="card-header">
+                            <input type='hidden' name='user_id' value='<?=$id_user?>'>
                             <h5 class="card-title">Data Ujian</h5>
                         </div>
                         <div class="card-body">

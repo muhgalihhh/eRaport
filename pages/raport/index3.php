@@ -46,7 +46,7 @@
                     <h3 class="page-title">Data Raport</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../<?=$_SESSION['mainurl']?>">Dashboard</a></li>
-                        <li class="breadcrumb-item">aData Raport Kelas 9</li>
+                        <li class="breadcrumb-item"><a href="home3.php">Data Raport Kelas 9</a></li>
                         <li class="breadcrumb-item active">Data Tiap Ujian</li>
                     </ul>
                 </div>
@@ -78,7 +78,7 @@
                                             <th>Foto</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
-                                            <th>Kelas</th>
+                                            <th>Ruang Ujian</th>
                                             <th>nama_ujian</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Aksi</th>
@@ -90,7 +90,7 @@
                                             <th>Foto</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
-                                            <th>Kelas</th>
+                                            <th>Ruang Ujian</th>
                                             <th>nama_ujian</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Aksi</th>
@@ -116,7 +116,7 @@
                                                 <a href="edit.php?id=<?= $row['user_id'] ?>"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal<?= $row['user_id'] ?>"><i
+                                                    data-target="#deleteModal<?= $row['ujian_id'] ?>"><i
                                                         class="fa fa-trash"></i></button>
                                             </td>
                                             <!-- Edit Modal -->
@@ -173,8 +173,9 @@
 
                                             <!-- Edit modal akhir -->
                                             <!-- Delete Modal -->
-                                            <div class="modal fade" id="deleteModal<?= $row['user_id'] ?>" tabindex="-1"
-                                                role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="deleteModal<?= $row['ujian_id'] ?>"
+                                                tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -191,7 +192,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Cancel</button>
-                                                            <a href="hapus.php?id=<?=$row['user_id']?>"
+                                                            <a href="hapus.php?id=<?=$row['user_id']?>&ujian_id_delete=<?=$row['ujian_id']?>"
                                                                 class="btn btn-danger">Delete</a>
                                                         </div>
                                                     </div>
